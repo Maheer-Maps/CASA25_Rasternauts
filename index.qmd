@@ -1,32 +1,75 @@
 # CASA00025 Group Project Title Here
 
+Fill in the sections below to provide a brief summary of your project. Each section should have no more than 100 words. Do not edit any of the headings.
+
 ## Project Summary 
 
-Fill in the sections below to provide a brief summary of your project. Each section should have no more than 100 words. Do not edit any of the headings.
+This project aims to develop an application using Google Earth Engine to assess landslide susceptibility in Nepal. By integrating terrain, hydrology, soil, and land cover datasets, the model identifies high-risk zones. A colour-coded output—green (safe), yellow (moderate risk), red (high risk)—helps visualise potential danger. The model follows methodologies from “Landslide Susceptibility Models Utilising Spatial Data Analysis Techniques” by Remondo et al. Once developed, it will be tested against recent landslide incident data from the Bipad Portal (6–13 April 2025) to validate its accuracy and practical viability.
+
+<a href="https://link.springer.com/article/10.1023/B%3ANHAZ.0000007202.12543.3a" target="_blank">
+  ![Fabbri et al, 2003](images/Report.png)
+</a>
+
+
+![Fabbri et al, 2003](images/Report.png)
 
 ### Problem Statement 
 
-What is the problem you’re trying to address using this application? 
+Nepal's mountainous terrain, monsoonal rainfall, and vulnerable infrastructure make it highly prone to landslides. There is a need for a scalable, data-driven approach to identify at-risk areas before disasters occur. Current models are either too general or lack proper integration of multi-source spatial data. This project addresses that gap with a reproducible and normalised risk model tailored to Nepal’s unique landscape.
 
 ### End User 
 
-Who are you building this application for? How does it address a need this community has?
+The primary end users are government disaster management bodies (e.g., Nepal’s Ministry of Home Affairs), geospatial analysts, NGOs working in disaster risk reduction, and local municipalities seeking early warning and mitigation strategies.
 
 ### Data
 
-What data are you using? 
+Shapefile: National boundary of Nepal
+
+Elevation/Slope: USGS SRTMGL1_003
+
+Land Cover: MODIS MCD12Q1 (2020)
+
+Hydrology: WWF HydroSHEDS flow accumulation
+
+Soil Data: OpenLandMap (texture & clay content)
+
+Validation: Bipad Portal landslide incident points (6–13 April 2025)
+
+<a href="https://bipadportal.gov.np/incidents/" target="_blank">
+  ![Bipad Portal Nepal National Incidents Map, 2025](images/Incidents.png)
+</a>
+
+![Bipad Portal Nepal National Incidents Map, 2025](images/Incidents.png)
 
 ### Methodology
 
-How are you using this data to address the problem?
+Filter shapefile to Nepal
+
+Extract and clip elevation data, compute slope
+
+Analyse land cover, reclassify bare land as higher risk
+
+Map water flow to identify erosion-prone areas
+
+Assess soil texture, emphasising clay-heavy zones
+
+Normalise each factor to a 0–1 scale
+
+Weight inputs: Slope (30%), Soil (20%), Rivers (10%), Elevation (10%), Land Cover (10%)
+
+Combine layers using a weighted sum model
+
+Visualise the risk using a red-yellow-green palette
 
 ### Interface
 
-How does your application's interface work to address the needs of your end user?
+(How does your application's interface work to address the needs of your end user?)
 
 ## The Application 
 
-Replace the link below with the link to your application.
+The final application will run on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and potentially overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.
+
+TO BE REPLACED:
 
 :::{.column-page}
 
@@ -35,7 +78,31 @@ Replace the link below with the link to your application.
 :::
 ## How it Works 
 
-Use this section to explain how your application works using code blocks and text explanations (no more than 500 words excluding code):
+## 1. Data Preparation and Selection
+
+![Loading Data, 2025](images/1_Load and look at data.png)
+
+The model begins by importing a shapefile defining Nepal’s boundaries, ensuring all subsequent datasets are spatially clipped to the relevant region. Various geospatial catalogues are explored for coverage, accuracy, and temporal relevance. USGS SRTM is selected for elevation and slope analysis due to its global 30m resolution. MODIS land cover data from 2020 is chosen for consistency and recency. WWF HydroSHEDS is used for hydrology, while OpenLandMap provides soil texture and clay content. These layers form the basis of our model, chosen specifically for their compatibility, open access, and prior use in landslide risk assessments globally.
+
+## 2. Risk Factor Normalisation and Weighting
+
+![Normalizing and Weighting Data, 2025](images/2_Making_The_Model.png)
+
+Following the methodology from Remondo et al. (Spain, 2005), each input layer is normalised to a 0–1 range to ensure comparability across variables. The normalisation spans values specific to Nepal’s topography and environmental conditions. Slope is weighted highest (30%) as steep terrain correlates strongly with landslide incidence. Soil texture and clay fraction contribute 20%, given their influence on water retention. Distance to streams (10%) accounts for erosion potential, while elevation (10%) and land cover (10%) further contextualise surface vulnerability. MODIS data from 2020 is used to match the spatial timeframe of recent events. These weights reflect empirical evidence and expert judgement.
+
+## 3. Integrating Incident Points from Bipad Portal
+
+![Incident Points in GEE, 2025](images/4_GeoJson Points.png)
+
+To validate the model, recent landslide incidents (6–13 April 2025) are scraped from Nepal’s Bipad Portal, which maintains a national disaster event database. Using spatial extraction tools and basic automation, the event point data is converted into a GeoJSON format. This is then uploaded into Google Earth Engine for visual comparison against the model output. These points represent ground-truth observations and are critical for assessing whether high-risk zones in the application align with actual landslide locations. This step bridges remote sensing with on-the-ground incident reporting and provides the foundation for further accuracy testing.
+
+## 4. Visualising Risk Through the Interface
+The application’s output is presented as a single raster layer showing normalised landslide risk. A simple and intuitive interface uses a traffic light colour scheme: green indicates low risk, yellow moderate, and red signifies high-risk areas. This gradient approach makes the output accessible to non-specialists, including government officers and local planners. Users can interactively pan, zoom, and inspect any region of Nepal in real-time via Google Earth Engine. Additional layers, such as slope or soil texture, can be toggled for in-depth analysis. This visual clarity supports both strategic planning and emergency response.
+
+## 5. Validation, Testing and Potential Expansion
+The application’s accuracy will be tested by comparing the predicted high-risk zones against actual landslide points from the Bipad dataset. We will calculate metrics like true positive rate and explore false negatives. If feasible, a Random Forest classifier may be trained using the incident data combined with randomly sampled no-landslide points, incorporating the same environmental variables. This would provide a machine learning-based susceptibility map for comparison with our weighted model. The end goal is to assess both models’ strengths and explore whether hybrid or ensemble techniques could offer improved precision for future applications.
+
+## EXAMPLE CONTENT
 
 ```js
 Map.setCenter(35.51898, 33.90153, 15);
@@ -51,5 +118,3 @@ You can include images:
 
 and math:
 $$ \Large t = {\frac{\overline{x_1}-\overline{x_2}} {\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}} $$
-
-
