@@ -1,3 +1,8 @@
+---
+title: "Your Project Title"
+format: html
+---
+
 # CASA00025 Group Project Title Here
 
 Fill in the sections below to provide a brief summary of your project. Each section should have no more than 100 words. Do not edit any of the headings.
@@ -6,12 +11,7 @@ Fill in the sections below to provide a brief summary of your project. Each sect
 
 This project aims to develop an application using Google Earth Engine to assess landslide susceptibility in Nepal. By integrating terrain, hydrology, soil, and land cover datasets, the model identifies high-risk zones. A colour-coded output—green (safe), yellow (moderate risk), red (high risk)—helps visualise potential danger. The model follows methodologies from “Landslide Susceptibility Models Utilising Spatial Data Analysis Techniques” by Remondo et al. Once developed, it will be tested against recent landslide incident data from the Bipad Portal (6–13 April 2025) to validate its accuracy and practical viability.
 
-<a href="https://link.springer.com/article/10.1023/B%3ANHAZ.0000007202.12543.3a" target="_blank">
-  ![Fabbri et al, 2003](images/Report.png)
-</a>
-
-
-![Fabbri et al, 2003](images/Report.png)
+[![Fabbri et al, 2003](images/Report.png)](https://link.springer.com/article/10.1023/B%3ANHAZ.0000007202.12543.3a)
 
 ### Problem Statement 
 
@@ -35,11 +35,7 @@ Soil Data: OpenLandMap (texture & clay content)
 
 Validation: Bipad Portal landslide incident points (6–13 April 2025)
 
-<a href="https://bipadportal.gov.np/incidents/" target="_blank">
-  ![Bipad Portal Nepal National Incidents Map, 2025](images/Incidents.png)
-</a>
-
-![Bipad Portal Nepal National Incidents Map, 2025](images/Incidents.png)
+[![Bipad Portal Nepal National Incidents Map, 2025](images/Incidents.png)](https://bipadportal.gov.np/incidents/)
 
 ### Methodology
 
