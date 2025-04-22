@@ -1,0 +1,52 @@
+
+
+body {
+    background-color: #e5dece; /* Change to your desired color */
+}
+
+h1, .h1 {
+    color: #715109; /* Change to your desired color */
+}
+
+h2, .h2, h3, .h3 {
+    color: #917b49; /* Default color for h2 */
+}
+
+/* Change link colors */
+a {
+    color: #715109; /* Default link color */
+}
+
+a:hover,
+a:visited {
+    color: #afa283; /* Color for hover and visited links */
+}
+
+
+.sidebar nav[role=doc-toc] ul > li > a.active,
+.sidebar nav[role=doc-toc] ul > li > ul > li > a.active,
+.sidebar nav[role=doc-toc] ul > li > a:hover,
+.sidebar nav[role=doc-toc] ul > li > ul > li > a:hover {
+    color: #afa283 !important; /* Color for active and hover */
+    border-left: 1px solid #afa283; /* Border for active links */
+}
+#title-block-header{
+  width: 100%;
+}
+.quarto-title-block .quarto-title-banner{
+    height: 350px;
+    display: flex;                  /* Change to flex */
+    justify-content: center;        /* Center horizontally */
+    align-items: center;            /* Center vertically */
+    text-align: center;  
+}
+  
+#title-block-header.quarto-title-block.default .quarto-title .title {
+  color: #e5dece;
+  text-align: center;
+  font-size: 74px;
+}
+
+.footer-items .nav-link{
+  color: #715109 !important; 
+}

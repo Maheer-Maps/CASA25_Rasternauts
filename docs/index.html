@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.326">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>index</title>
+<title>Nepal Landslides (temp)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -63,24 +63,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<link href="./images/landslide_icon.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-9e228d6d4d66c12a9d11739da31c2b1c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3fbdbd5bb53a8cece234703cc9652e14.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -89,66 +94,204 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<style>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      .quarto-title-block .quarto-title-banner {
+        background-image: url(images/header.png);
+background-size: cover;
+      }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="style_gen.css">
 </head>
 
-<body class="fullcontent">
+<body>
 
 <div id="quarto-search-results"></div>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Nepal Landslides (temp)</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contents</h2>
+   
+  <ul>
+  <li><a href="#project-summary" id="toc-project-summary" class="nav-link active" data-scroll-target="#project-summary">Project Summary</a>
+  <ul class="collapse">
+  <li><a href="#problem-statement" id="toc-problem-statement" class="nav-link" data-scroll-target="#problem-statement">Problem Statement</a></li>
+  <li><a href="#end-user" id="toc-end-user" class="nav-link" data-scroll-target="#end-user">End User</a></li>
+  </ul></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  <li><a href="#the-application" id="toc-the-application" class="nav-link" data-scroll-target="#the-application">The Application</a>
+  <ul class="collapse">
+  <li><a href="#interface" id="toc-interface" class="nav-link" data-scroll-target="#interface">Interface</a></li>
+  </ul></li>
+  <li><a href="#example-content" id="toc-example-content" class="nav-link" data-scroll-target="#example-content">EXAMPLE CONTENT</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
 
 
-<section id="casa00025-group-project-title-here" class="level1 page-columns page-full">
-<h1>CASA00025 Group Project Title Here</h1>
+
+
+<p>Fill in the sections below to provide a brief summary of your project. Each section should have no more than 100 words. Do not edit any of the headings.</p>
 <section id="project-summary" class="level2">
 <h2 class="anchored" data-anchor-id="project-summary">Project Summary</h2>
-<p>Fill in the sections below to provide a brief summary of your project. Each section should have no more than 100 words. Do not edit any of the headings.</p>
+<p>This project aims to develop an application using Google Earth Engine to assess landslide susceptibility in Nepal. By integrating terrain, hydrology, soil, and land cover datasets, the model identifies high-risk zones. A colour-coded output—green (safe), yellow (moderate risk), red (high risk)—helps visualise potential danger. The model follows methodologies from “Landslide Susceptibility Models Utilising Spatial Data Analysis Techniques” by Remondo et al.&nbsp;Once developed, it will be tested against recent landslide incident data from the Bipad Portal (6–13 April 2025) to validate its accuracy and practical viability.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://link.springer.com/article/10.1023/B%3ANHAZ.0000007202.12543.3a"><img src="images/Report.png" class="img-fluid figure-img" alt="Fabbri et al, 2003"></a></p>
+<figcaption>Fabbri et al, 2003</figcaption>
+</figure>
+</div>
+<hr>
 <section id="problem-statement" class="level3">
 <h3 class="anchored" data-anchor-id="problem-statement">Problem Statement</h3>
-<p>What is the problem you’re trying to address using this application?</p>
+<p>Nepal’s mountainous terrain, monsoonal rainfall, and vulnerable infrastructure make it highly prone to landslides. There is a need for a scalable, data-driven approach to identify at-risk areas before disasters occur. Current models are either too general or lack proper integration of multi-source spatial data. This project addresses that gap with a reproducible and normalised risk model tailored to Nepal’s unique landscape.</p>
 </section>
 <section id="end-user" class="level3">
 <h3 class="anchored" data-anchor-id="end-user">End User</h3>
-<p>Who are you building this application for? How does it address a need this community has?</p>
+<p>The primary end users are government disaster management bodies (e.g., Nepal’s Ministry of Home Affairs), geospatial analysts, NGOs working in disaster risk reduction, and local municipalities seeking early warning and mitigation strategies.</p>
 </section>
-<section id="data" class="level3">
-<h3 class="anchored" data-anchor-id="data">Data</h3>
-<p>What data are you using?</p>
 </section>
-<section id="methodology" class="level3">
-<h3 class="anchored" data-anchor-id="methodology">Methodology</h3>
-<p>How are you using this data to address the problem?</p>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>Shapefile: National boundary of Nepal</p>
+<p>Elevation/Slope: USGS SRTMGL1_003</p>
+<p>Land Cover: MODIS MCD12Q1 (2020)</p>
+<p>Hydrology: WWF HydroSHEDS flow accumulation</p>
+<p>Soil Data: OpenLandMap (texture &amp; clay content)</p>
+<p>Validation: Bipad Portal landslide incident points (6–13 April 2025)</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://bipadportal.gov.np/incidents/"><img src="images/Incidents.png" class="img-fluid figure-img" alt="Bipad Portal Nepal National Incidents Map, 2025"></a></p>
+<figcaption>Bipad Portal Nepal National Incidents Map, 2025</figcaption>
+</figure>
+</div>
 </section>
-<section id="interface" class="level3">
-<h3 class="anchored" data-anchor-id="interface">Interface</h3>
-<p>How does your application’s interface work to address the needs of your end user?</p>
-</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
+<p>Filter shapefile to Nepal</p>
+<p>Extract and clip elevation data, compute slope</p>
+<p>Analyse land cover, reclassify bare land as higher risk</p>
+<p>Map water flow to identify erosion-prone areas</p>
+<p>Assess soil texture, emphasising clay-heavy zones</p>
+<p>Normalise each factor to a 0–1 scale</p>
+<p>Weight inputs: Slope (30%), Soil (20%), Rivers (10%), Elevation (10%), Land Cover (10%)</p>
+<p>Combine layers using a weighted sum model</p>
+<p>Visualise the risk using a red-yellow-green palette</p>
 </section>
 <section id="the-application" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="the-application">The Application</h2>
-<p>Replace the link below with the link to your application.</p>
+<p>The final application will run on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and potentially overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.</p>
+<p>TO BE REPLACED:</p>
 <div class="column-page">
 <iframe src="https://ollielballinger.users.earthengine.app/view/turkey-earthquake" width="100%" height="700px">
 </iframe>
 </div>
+<section id="interface" class="level3">
+<h3 class="anchored" data-anchor-id="interface">Interface</h3>
+<p>(How does your application’s interface work to address the needs of your end user?) ### How it Works</p>
+<section id="data-preparation-and-selection" class="level4">
+<h4 class="anchored" data-anchor-id="data-preparation-and-selection">1. Data Preparation and Selection</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/1_Load and look at data.png" class="img-fluid figure-img"></p>
+<figcaption>Loading Data, 2025</figcaption>
+</figure>
+</div>
+<p>The model begins by importing a shapefile defining Nepal’s boundaries, ensuring all subsequent datasets are spatially clipped to the relevant region. Various geospatial catalogues are explored for coverage, accuracy, and temporal relevance. USGS SRTM is selected for elevation and slope analysis due to its global 30m resolution. MODIS land cover data from 2020 is chosen for consistency and recency. WWF HydroSHEDS is used for hydrology, while OpenLandMap provides soil texture and clay content. These layers form the basis of our model, chosen specifically for their compatibility, open access, and prior use in landslide risk assessments globally.</p>
 </section>
-<section id="how-it-works" class="level2">
-<h2 class="anchored" data-anchor-id="how-it-works">How it Works</h2>
-<p>Use this section to explain how your application works using code blocks and text explanations (no more than 500 words excluding code):</p>
+<section id="risk-factor-normalisation-and-weighting" class="level4">
+<h4 class="anchored" data-anchor-id="risk-factor-normalisation-and-weighting">2. Risk Factor Normalisation and Weighting</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/2_Making_The_Model.png" class="img-fluid figure-img"></p>
+<figcaption>Normalizing and Weighting Data, 2025</figcaption>
+</figure>
+</div>
+<p>Following the methodology from Remondo et al.&nbsp;(Spain, 2005), each input layer is normalised to a 0–1 range to ensure comparability across variables. The normalisation spans values specific to Nepal’s topography and environmental conditions. Slope is weighted highest (30%) as steep terrain correlates strongly with landslide incidence. Soil texture and clay fraction contribute 20%, given their influence on water retention. Distance to streams (10%) accounts for erosion potential, while elevation (10%) and land cover (10%) further contextualise surface vulnerability. MODIS data from 2020 is used to match the spatial timeframe of recent events. These weights reflect empirical evidence and expert judgement.</p>
+</section>
+<section id="integrating-incident-points-from-bipad-portal" class="level4">
+<h4 class="anchored" data-anchor-id="integrating-incident-points-from-bipad-portal">3. Integrating Incident Points from Bipad Portal</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/4_GeoJson Points.png" class="img-fluid figure-img"></p>
+<figcaption>Incident Points in GEE, 2025</figcaption>
+</figure>
+</div>
+<p>To validate the model, recent landslide incidents (6–13 April 2025) are scraped from Nepal’s Bipad Portal, which maintains a national disaster event database. Using spatial extraction tools and basic automation, the event point data is converted into a GeoJSON format. This is then uploaded into Google Earth Engine for visual comparison against the model output. These points represent ground-truth observations and are critical for assessing whether high-risk zones in the application align with actual landslide locations. This step bridges remote sensing with on-the-ground incident reporting and provides the foundation for further accuracy testing.</p>
+</section>
+<section id="visualising-risk-through-the-interface" class="level4">
+<h4 class="anchored" data-anchor-id="visualising-risk-through-the-interface">4. Visualising Risk Through the Interface</h4>
+<p>The application’s output is presented as a single raster layer showing normalised landslide risk. A simple and intuitive interface uses a traffic light colour scheme: green indicates low risk, yellow moderate, and red signifies high-risk areas. This gradient approach makes the output accessible to non-specialists, including government officers and local planners. Users can interactively pan, zoom, and inspect any region of Nepal in real-time via Google Earth Engine. Additional layers, such as slope or soil texture, can be toggled for in-depth analysis. This visual clarity supports both strategic planning and emergency response.</p>
+</section>
+<section id="validation-testing-and-potential-expansion" class="level4">
+<h4 class="anchored" data-anchor-id="validation-testing-and-potential-expansion">5. Validation, Testing and Potential Expansion</h4>
+<p>The application’s accuracy will be tested by comparing the predicted high-risk zones against actual landslide points from the Bipad dataset. We will calculate metrics like true positive rate and explore false negatives. If feasible, a Random Forest classifier may be trained using the incident data combined with randomly sampled no-landslide points, incorporating the same environmental variables. This would provide a machine learning-based susceptibility map for comparison with our weighted model. The end goal is to assess both models’ strengths and explore whether hybrid or ensemble techniques could offer improved precision for future applications.</p>
+</section>
+</section>
+</section>
+<section id="example-content" class="level2">
+<h2 class="anchored" data-anchor-id="example-content">EXAMPLE CONTENT</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">setCenter</span>(<span class="fl">35.51898</span><span class="op">,</span> <span class="fl">33.90153</span><span class="op">,</span> <span class="dv">15</span>)<span class="op">;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">Map</span><span class="op">.</span><span class="fu">setOptions</span>(<span class="st">"satellite"</span>)<span class="op">;</span></span>
@@ -158,13 +301,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/beirut_change_2020.jpg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Pixelwise T-Test, 2018</figcaption><p></p>
+<figcaption>Pixelwise T-Test, 2018</figcaption>
 </figure>
 </div>
 <p>and math: <span class="math display">\[ \Large t = {\frac{\overline{x_1}-\overline{x_2}} {\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}} \]</span></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -188,121 +330,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const disableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'prefetch';
-    }
-  }
-  const enableStylesheet = (stylesheets) => {
-    for (let i=0; i < stylesheets.length; i++) {
-      const stylesheet = stylesheets[i];
-      stylesheet.rel = 'stylesheet';
-    }
-  }
-  const manageTransitions = (selector, allowTransitions) => {
-    const els = window.document.querySelectorAll(selector);
-    for (let i=0; i < els.length; i++) {
-      const el = els[i];
-      if (allowTransitions) {
-        el.classList.remove('notransition');
-      } else {
-        el.classList.add('notransition');
-      }
-    }
-  }
-  const toggleColorMode = (alternate) => {
-    // Switch the stylesheets
-    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-    manageTransitions('#quarto-margin-sidebar .nav-link', false);
-    if (alternate) {
-      enableStylesheet(alternateStylesheets);
-      for (const sheetNode of alternateStylesheets) {
-        if (sheetNode.id === "quarto-bootstrap") {
-          toggleBodyColorMode(sheetNode);
-        }
-      }
-    } else {
-      disableStylesheet(alternateStylesheets);
-      toggleBodyColorPrimary();
-    }
-    manageTransitions('#quarto-margin-sidebar .nav-link', true);
-    // Switch the toggles
-    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-    for (let i=0; i < toggles.length; i++) {
-      const toggle = toggles[i];
-      if (toggle) {
-        if (alternate) {
-          toggle.classList.add("alternate");     
-        } else {
-          toggle.classList.remove("alternate");
-        }
-      }
-    }
-    // Hack to workaround the fact that safari doesn't
-    // properly recolor the scrollbar when toggling (#1455)
-    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-      manageTransitions("body", false);
-      window.scrollTo(0, 1);
-      setTimeout(() => {
-        window.scrollTo(0, 0);
-        manageTransitions("body", true);
-      }, 40);  
-    }
-  }
-  const isFileUrl = () => { 
-    return window.location.protocol === 'file:';
-  }
-  const hasAlternateSentinel = () => {  
-    let styleSentinel = getColorSchemeSentinel();
-    if (styleSentinel !== null) {
-      return styleSentinel === "alternate";
-    } else {
-      return false;
-    }
-  }
-  const setStyleSentinel = (alternate) => {
-    const value = alternate ? "alternate" : "default";
-    if (!isFileUrl()) {
-      window.localStorage.setItem("quarto-color-scheme", value);
-    } else {
-      localAlternateSentinel = value;
-    }
-  }
-  const getColorSchemeSentinel = () => {
-    if (!isFileUrl()) {
-      const storageValue = window.localStorage.getItem("quarto-color-scheme");
-      return storageValue != null ? storageValue : localAlternateSentinel;
-    } else {
-      return localAlternateSentinel;
-    }
-  }
-  let localAlternateSentinel = 'alternate';
-  // Dark / light mode switch
-  window.quartoToggleColorScheme = () => {
-    // Read the current dark / light value 
-    let toAlternate = !hasAlternateSentinel();
-    toggleColorMode(toAlternate);
-    setStyleSentinel(toAlternate);
-  };
-  // Ensure there is a toggle, if there isn't float one in the top right
-  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-    const a = window.document.createElement('a');
-    a.classList.add('top-right');
-    a.classList.add('quarto-color-scheme-toggle');
-    a.href = "";
-    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-    const i = window.document.createElement("i");
-    i.classList.add('bi');
-    a.appendChild(i);
-    window.document.body.appendChild(a);
-  }
-  // Switch to dark mode if need be
-  if (hasAlternateSentinel()) {
-    toggleColorMode(true);
-  } else {
-    toggleColorMode(false);
-  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -318,18 +345,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -361,11 +377,53 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/maheer-maps\.github\.io\/CASA25_Rasternauts\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -375,8 +433,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -388,7 +455,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -432,6 +621,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -457,6 +647,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -517,7 +733,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<div style="text-align: left">
+CASA0025 Group Project
+</div>
+</div>   
+    <div class="nav-footer-center">
+<div style=" color: #715109">
+<strong>Adarsh, Clare, Dan, Maheer, Norah, and Rob </strong>
+</div>
+</div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/Maheer-Maps/CASA25_Rasternauts" target="_blank">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

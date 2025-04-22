@@ -2,28 +2,39 @@ project:
   type: website
   output-dir: docs
 
-book:
-  title: "CASA0025 Final Assessment"
-  author: "Group Name"
-  date: "01/01/2024"
-  chapters:
-    - index.qmd
-
-  repo-actions: [edit]
-  downloads: [pdf, epub]
-  sharing: [twitter, facebook]
-  favicon: favicon.ico
-  sidebar:
-    logo: casa_logo.png
-
+website:
+  favicon: images/landslide_icon.png
+  page-navigation: true
+  site-url: "https://maheer-maps.github.io/CASA25_Rasternauts/"
+  repo-url: "https://github.com/Maheer-Maps/CASA25_Rasternauts"
+  page-footer:
+    background: "#afa283"
+    foreground: "#715109"
+    left: "<div style='text-align: left'>CASA0025 Group Project </div>"
+    center: "<div style=' color: #715109'><strong>Adarsh, Clare, Dan, Maheer, Norah, and Rob </strong></div>"
+    right: 
+      - icon: github
+        href: https://github.com/Maheer-Maps/CASA25_Rasternauts
+        target: "_blank" 
 
 
 format:
   html:
+    toc: true
+    toc-depth: 3
+    toc-title: Contents
+    toc-location: right
+    
     theme:
-      dark: darkly
-      light: cosmo
+      light: Journal
+    #  dark: Solar
+    grid: 
+      body-width: 900px
+    
+
     code-copy: true
     code-overflow: wrap
     highlight-style: monokai.theme
-    linkcolor: "#34a832"
+    #linkcolor: "#34a832"
+    smooth-scroll: true
+    link-external-newwindow: true
