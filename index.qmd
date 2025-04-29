@@ -4,14 +4,6 @@ title: "Nepal Landslides (temp)"
 css: style_gen.css
 
 ---
-
-
-
-Fill in the sections below to provide a brief summary of your project. Each section should have no more than 100 words. Do not edit any of the headings.
-
-
-
-
 ## Project Summary 
 
 This project aims to develop an application using Google Earth Engine to assess landslide susceptibility in Nepal. By integrating terrain, hydrology, soil, and land cover datasets, the model identifies high-risk zones. A colour-coded output—green (safe), yellow (moderate risk), red (high risk)—helps visualise potential danger. The model follows methodologies from “Landslide Susceptibility Models Utilising Spatial Data Analysis Techniques” by Remondo et al. Once developed, it will be tested against recent landslide incident data from the Bipad Portal (6–13 April 2025) to validate its accuracy and practical viability.
@@ -30,39 +22,39 @@ The primary end users are government disaster management bodies (e.g., Nepal’s
 
 ## Data
 
-Shapefile: National boundary of Nepal
+- Shapefile: National boundary of Nepal
 
-Elevation/Slope: USGS SRTMGL1_003
+- Elevation/Slope: USGS SRTMGL1_003
 
-Land Cover: MODIS MCD12Q1 (2020)
+- Land Cover: MODIS MCD12Q1 (2020)
 
-Hydrology: WWF HydroSHEDS flow accumulation
+- Hydrology: WWF HydroSHEDS flow accumulation
 
-Soil Data: OpenLandMap (texture & clay content)
+- Soil Data: OpenLandMap (texture & clay content)
 
-Validation: Bipad Portal landslide incident points (6–13 April 2025)
+- Validation: Bipad Portal landslide incident points (6–13 April 2025)
 
 [![Bipad Portal Nepal National Incidents Map, 2025](images/Incidents.png)](https://bipadportal.gov.np/incidents/)
 
 ## Methodology
 
-Filter shapefile to Nepal
+1. Filter shapefile to Nepal
 
-Extract and clip elevation data, compute slope
+2. Extract and clip elevation data, compute slope
 
-Analyse land cover, reclassify bare land as higher risk
+3. Analyse land cover, reclassify bare land as higher risk
 
-Map water flow to identify erosion-prone areas
+4. Map water flow to identify erosion-prone areas
 
-Assess soil texture, emphasising clay-heavy zones
+5. Assess soil texture, emphasising clay-heavy zones
 
-Normalise each factor to a 0–1 scale
+6. Normalise each factor to a 0–1 scale
 
-Weight inputs: Slope (30%), Soil (20%), Rivers (10%), Elevation (10%), Land Cover (10%)
+7. Weight inputs: Slope (30%), Soil (20%), Rivers (10%), Elevation (10%), Land Cover (10%)
 
-Combine layers using a weighted sum model
+8. Combine layers using a weighted sum model
 
-Visualise the risk using a red-yellow-green palette
+9. Visualize the risk using a red-yellow-green palette
 
 
 
@@ -107,19 +99,6 @@ The application’s output is presented as a single raster layer showing normali
 #### 5. Validation, Testing and Potential Expansion
 The application’s accuracy will be tested by comparing the predicted high-risk zones against actual landslide points from the Bipad dataset. We will calculate metrics like true positive rate and explore false negatives. If feasible, a Random Forest classifier may be trained using the incident data combined with randomly sampled no-landslide points, incorporating the same environmental variables. This would provide a machine learning-based susceptibility map for comparison with our weighted model. The end goal is to assess both models’ strengths and explore whether hybrid or ensemble techniques could offer improved precision for future applications.
 
-## EXAMPLE CONTENT
+# References
 
-```js
-Map.setCenter(35.51898, 33.90153, 15);
 
-Map.setOptions("satellite");
-
-var aoi = ee.Geometry.Point(35.51898, 33.90153).buffer(3000);
-```
-
-You can include images:
-
-![Pixelwise T-Test, 2018](images/beirut_change_2020.jpg)
-
-and math:
-$$ \Large t = {\frac{\overline{x_1}-\overline{x_2}} {\sqrt{\frac{s^2_1}{n_1} + \frac{s^2_2}{n_2}}}} $$
