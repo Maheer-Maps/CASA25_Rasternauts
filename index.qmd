@@ -26,11 +26,13 @@ The main end users of this application are urban local bodies, disaster manageme
 
 - Elevation/Slope: NASA SRTM Digital Elevation 30m
 
-- Land Cover: MODIS MCD12Q1 (2020)
+- Land Cover: MODIS Land Cover Type (2020)
 
 - Hydrology: WWF HydroSHEDS flow accumulation
 
-- Soil Data: OpenLandMap (texture & clay content)
+- Soil Texture: OpenLandMap Soil Texture Class (USDA System)
+
+- Soil Type: OpenLandMap Clay Content
 
 - Validation: Bipad Portal landslide incident points (6–13 April 2025)
 
