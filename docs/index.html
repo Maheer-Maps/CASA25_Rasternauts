@@ -166,7 +166,12 @@ background-size: cover;
 <section id="susceptibility-model" class="level3">
 <h3 class="anchored" data-anchor-id="susceptibility-model">Susceptibility Model</h3>
 <p>To recreate Hong et al.’s susceptibility model in GEE, we computed six environmental variables and imported them into a weighted linear combination. Each variable was assigned a weight and normalized on a 0-1 scale, and the combination of weights provided a susceptibility score for each pixel. Susceptibility was then normalized 0-1 for the whole of Nepal.</p>
-<p>[<img src="images/Flowchart1.png" class="img-fluid" alt="Susceptibility Model Methodology">]</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Flowchart1.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Susceptibility Model Methodology</figcaption>
+</figure>
+</div>
 <ol type="1">
 <li><p>Filter shapefile to Nepal</p></li>
 <li><p>Extract and clip elevation data, compute slope</p></li>
