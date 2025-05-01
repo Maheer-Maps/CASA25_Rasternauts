@@ -6,7 +6,7 @@ css: style_gen.css
 ---
 ## Project Summary 
 
-The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from  “Landslide Susceptibility Models Utilising Spatial Data Analysis Techniques” by Remondo et al. The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the [Bipad Portal](https://bipadportal.gov.np/incidents/) (Dates: 6-13 April, 2025).
+The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from  “Use of satellite remote sensing data in the mapping of global landslide susceptibility” by Hong et al. The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the [Bipad Portal](https://bipadportal.gov.np/incidents/) (Dates: 6-13 April, 2025).
 
 [![Fabbri et al, 2003](images/Report.png)](https://link.springer.com/article/10.1023/B%3ANHAZ.0000007202.12543.3a)
 
@@ -24,19 +24,27 @@ The main end users of this application are urban local bodies, disaster manageme
 
 - Shapefile: National boundary of Nepal
 
-- Elevation/Slope: USGS SRTMGL1_003
+- Elevation/Slope: NASA SRTM Digital Elevation 30m
 
-- Land Cover: MODIS MCD12Q1 (2020)
+- Land Cover: MODIS Land Cover Type (2020)
 
 - Hydrology: WWF HydroSHEDS flow accumulation
 
-- Soil Data: OpenLandMap (texture & clay content)
+- Soil Texture: OpenLandMap Soil Texture Class (USDA System)
+
+- Soil Type: OpenLandMap Clay Content
 
 - Validation: Bipad Portal landslide incident points (6–13 April 2025)
 
 [![Bipad Portal Nepal National Incidents Map, 2025](images/Incidents.png)](https://bipadportal.gov.np/incidents/)
 
 ## Methodology
+
+### Susceptibility Model
+
+To recreate Hong et al.'s susceptibility model in GEE, we computed six environmental variables and imported them into a weighted linear combination. Each variable was assigned a weight and normalized on a 0-1 scale, and the combination of weights provided a susceptibility score for each pixel. Susceptibility was then normalized 0-1 for the whole of Nepal.
+
+[![Susceptibility Model Methodology](images/Flowchart1.png)]
 
 1. Filter shapefile to Nepal
 
