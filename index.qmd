@@ -62,7 +62,7 @@ The website provides an intuitive, bilingual interface combining expertise and d
 
 ## The Application 
 
-The final application will run on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and potentially overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.
+The application runs on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.
 
 TO BE REPLACED:
 
@@ -71,10 +71,6 @@ TO BE REPLACED:
 <iframe src='https://ee-ajikumaraadarsh.projects.earthengine.app/view/nepallandslide' width='100%' height='800px'></iframe>
 
 :::
-
-### Interface
-
-(How does your application's interface work to address the needs of your end user?)
 
 ### How it Works 
 
