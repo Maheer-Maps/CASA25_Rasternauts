@@ -36,6 +36,10 @@ Our data is derived from a variety of public resources, making it possible for f
 
 - Validation: Bipad Portal landslide incident points (6–13 April 2025)
 
+- Census Population: National Census of Nepal
+
+- Population density: Global Human Settlement Layer
+
 [![Bipad Portal Nepal National Incidents Map, 2025](images/Incidents.png)](https://bipadportal.gov.np/incidents/)
 
 ## Methodology
@@ -48,7 +52,7 @@ To recreate Hong et al.'s susceptibility model in GEE, we imported six environme
 
 ### Random Forest Model
 
-To find populated areas most susceptible to landslides, we masked our environmental variables to populated areas, and trained a random forest classifier on landslide and randomly chosen non-landslide points from Bipad Portal. Each pixel was scored based on the proportion of decision trees voting landslide.
+To find populated areas most susceptible to landslides, we masked our environmental variables to populated areas, and trained a random forest classifier on landslide and randomly generated non-landslide points from Bipad Portal. Each pixel was scored based on the proportion of decision trees voting landslide.
 
 ## Interface
 
