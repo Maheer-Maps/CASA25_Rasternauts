@@ -54,6 +54,8 @@ To recreate Hong et al.'s susceptibility model in GEE, we imported six environme
 
 To find populated areas most susceptible to landslides, we masked our environmental variables to populated areas, and trained a random forest classifier on landslide and randomly generated non-landslide points from Bipad Portal. Each pixel was scored based on the proportion of decision trees voting landslide.
 
+![Random Forest Model Methodology](images/Flowchart2.jpg)
+
 ## Interface
 
 The website provides an intuitive, bilingual interface combining expertise and data into robust models, offering comparative visualisations and statistical summaries. With Nepali spoken by 78% of the population and English fluency estimated at 20–50%, the platform prioritises clarity through map-based dashboards and toggleable language options to enhance accessibility and local impact. 
