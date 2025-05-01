@@ -44,7 +44,7 @@ The main end users of this application are urban local bodies, disaster manageme
 
 To recreate Hong et al.'s susceptibility model in GEE, we computed six environmental variables and imported them into a weighted linear combination. Each variable was assigned a weight and normalized on a 0-1 scale, and the combination of weights provided a susceptibility score for each pixel. Susceptibility was then normalized 0-1 for the whole of Nepal.
 
-[![Susceptibility Model Methodology](images/Flowchart1.png)]
+![Susceptibility Model Methodology](images/Flowchart1.png)
 
 1. Filter shapefile to Nepal
 

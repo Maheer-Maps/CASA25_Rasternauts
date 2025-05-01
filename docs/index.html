@@ -106,7 +106,10 @@ background-size: cover;
   <li><a href="#end-user" id="toc-end-user" class="nav-link" data-scroll-target="#end-user">End User</a></li>
   </ul></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a>
+  <ul class="collapse">
+  <li><a href="#susceptibility-model" id="toc-susceptibility-model" class="nav-link" data-scroll-target="#susceptibility-model">Susceptibility Model</a></li>
+  </ul></li>
   <li><a href="#the-application" id="toc-the-application" class="nav-link" data-scroll-target="#the-application">The Application</a>
   <ul class="collapse">
   <li><a href="#interface" id="toc-interface" class="nav-link" data-scroll-target="#interface">Interface</a></li>
@@ -123,7 +126,7 @@ background-size: cover;
 
 <section id="project-summary" class="level2">
 <h2 class="anchored" data-anchor-id="project-summary">Project Summary</h2>
-<p>The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from “Landslide Susceptibility Models Utilising Spatial Data Analysis Techniques” by Remondo et al.&nbsp;The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the <a href="https://bipadportal.gov.np/incidents/">Bipad Portal</a> (Dates: 6-13 April, 2025).</p>
+<p>The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from “Use of satellite remote sensing data in the mapping of global landslide susceptibility” by Hong et al.&nbsp;The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the <a href="https://bipadportal.gov.np/incidents/">Bipad Portal</a> (Dates: 6-13 April, 2025).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="https://link.springer.com/article/10.1023/B%3ANHAZ.0000007202.12543.3a"><img src="images/Report.png" class="img-fluid figure-img"></a></p>
@@ -144,10 +147,11 @@ background-size: cover;
 <h2 class="anchored" data-anchor-id="data">Data</h2>
 <ul>
 <li><p>Shapefile: National boundary of Nepal</p></li>
-<li><p>Elevation/Slope: USGS SRTMGL1_003</p></li>
-<li><p>Land Cover: MODIS MCD12Q1 (2020)</p></li>
+<li><p>Elevation/Slope: NASA SRTM Digital Elevation 30m</p></li>
+<li><p>Land Cover: MODIS Land Cover Type (2020)</p></li>
 <li><p>Hydrology: WWF HydroSHEDS flow accumulation</p></li>
-<li><p>Soil Data: OpenLandMap (texture &amp; clay content)</p></li>
+<li><p>Soil Texture: OpenLandMap Soil Texture Class (USDA System)</p></li>
+<li><p>Soil Type: OpenLandMap Clay Content</p></li>
 <li><p>Validation: Bipad Portal landslide incident points (6–13 April 2025)</p></li>
 </ul>
 <div class="quarto-figure quarto-figure-center">
@@ -159,6 +163,10 @@ background-size: cover;
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
+<section id="susceptibility-model" class="level3">
+<h3 class="anchored" data-anchor-id="susceptibility-model">Susceptibility Model</h3>
+<p>To recreate Hong et al.’s susceptibility model in GEE, we computed six environmental variables and imported them into a weighted linear combination. Each variable was assigned a weight and normalized on a 0-1 scale, and the combination of weights provided a susceptibility score for each pixel. Susceptibility was then normalized 0-1 for the whole of Nepal.</p>
+<p>[<img src="images/Flowchart1.png" class="img-fluid" alt="Susceptibility Model Methodology">]</p>
 <ol type="1">
 <li><p>Filter shapefile to Nepal</p></li>
 <li><p>Extract and clip elevation data, compute slope</p></li>
@@ -170,6 +178,7 @@ background-size: cover;
 <li><p>Combine layers using a weighted sum model</p></li>
 <li><p>Visualize the risk using a red-yellow-green palette</p></li>
 </ol>
+</section>
 </section>
 <section id="the-application" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="the-application">The Application</h2>
