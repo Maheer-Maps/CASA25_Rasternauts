@@ -24,15 +24,15 @@ The main end users of this application are urban local bodies, disaster manageme
 
 - Shapefile: National boundary of Nepal
 
-- Elevation/Slope: NASA SRTM Digital Elevation 30m
+- Elevation/Slope: [NASA SRTM Digital Elevation 30m](https://developers.google.com/earth-engine/datasets/catalog/USGS_SRTMGL1_003)
 
-- Land Cover: MODIS Land Cover Type (2020)
+- Land Cover: [MODIS Land Cover Type (2020)](https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1)
 
-- Hydrology: WWF HydroSHEDS flow accumulation
+- Hydrology: [WWF HydroSHEDS flow accumulation](https://developers.google.com/earth-engine/datasets/catalog/WWF_HydroSHEDS_15ACC)
 
-- Soil Texture: OpenLandMap Soil Texture Class (USDA System)
+- Soil Texture: [OpenLandMap Soil Texture Class (USDA System)](https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_TEXTURE-CLASS_USDA-TT_M_v02)
 
-- Soil Type: OpenLandMap Clay Content
+- Soil Type: [OpenLandMap Clay Content](https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_CLAY-WFRACTION_USDA-3A1A1A_M_v02)
 
 - Validation: Bipad Portal landslide incident points (6–13 April 2025)
 
