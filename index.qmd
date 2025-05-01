@@ -6,9 +6,9 @@ css: style_gen.css
 ---
 ## Project Summary 
 
-The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from  “Use of satellite remote sensing data in the mapping of global landslide susceptibility” by Hong et al. The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the [Bipad Portal](https://bipadportal.gov.np/incidents/) (Dates: 6-13 April, 2025).
+The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from  “Use of satellite remote sensing data in the mapping of global landslide susceptibility” by Hong et al (2007). The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the [Bipad Portal](https://bipadportal.gov.np/incidents/) (Dates: 6-13 April, 2025).
 
-[![Fabbri et al, 2003](images/Report.png)](https://link.springer.com/article/10.1023/B%3ANHAZ.0000007202.12543.3a)
+[![Global Modelling by Hong et al., 2007](images/hongetal.png)](https://link.springer.com/article/10.1007/s11069-006-9104-z)
 
 ---
 
@@ -46,23 +46,7 @@ To recreate Hong et al.'s susceptibility model in GEE, we computed six environme
 
 ![Susceptibility Model Methodology](images/Flowchart1.png)
 
-1. Filter shapefile to Nepal
-
-2. Extract and clip elevation data, compute slope
-
-3. Analyse land cover, reclassify bare land as higher risk
-
-4. Map water flow to identify erosion-prone areas
-
-5. Assess soil texture, emphasising clay-heavy zones
-
-6. Normalise each factor to a 0–1 scale
-
-7. Weight inputs: Slope (30%), Soil (20%), Rivers (10%), Elevation (10%), Land Cover (10%)
-
-8. Combine layers using a weighted sum model
-
-9. Visualize the risk using a red-yellow-green palette
+### Random Forest Model
 
 
 
@@ -87,13 +71,13 @@ TO BE REPLACED:
 
 ![Loading Data, 2025](images/1_Load and look at data.png)
 
-The model begins by importing a shapefile defining Nepal’s boundaries, ensuring all subsequent datasets are spatially clipped to the relevant region. Various geospatial catalogues are explored for coverage, accuracy, and temporal relevance. USGS SRTM is selected for elevation and slope analysis due to its global 30m resolution. MODIS land cover data from 2020 is chosen for consistency and recency. WWF HydroSHEDS is used for hydrology, while OpenLandMap provides soil texture and clay content. These layers form the basis of our model, chosen specifically for their compatibility, open access, and prior use in landslide risk assessments globally.
+This model clips Hong et al.'s landslide susceptibility model to Nepal's boundaries. Greater slope and elevation, as calculated from NASA SRTM Digital Elevation, are associated with higher susceptibility. Looser, coarser soil texture, from OpenLandMap Soil Texture Class, is associated with higher susceptibility. A soil type with more clay, from OpenLandMap Clay Content, is associated with higher susceptibility. Greater drainage density, from WWF HydroSHEDS flow accumulation, is associated with lower susceptibility. Each MODIS land cover type was assigned a susceptibility value by Hong et al.
 
 #### 2. Risk Factor Normalisation and Weighting
 
 ![Normalizing and Weighting Data, 2025](images/2_Making_The_Model.png)
 
-Following the methodology from Remondo et al. (Spain, 2005), each input layer is normalised to a 0–1 range to ensure comparability across variables. The normalisation spans values specific to Nepal’s topography and environmental conditions. Slope is weighted highest (30%) as steep terrain correlates strongly with landslide incidence. Soil texture and clay fraction contribute 20%, given their influence on water retention. Distance to streams (10%) accounts for erosion potential, while elevation (10%) and land cover (10%) further contextualise surface vulnerability. MODIS data from 2020 is used to match the spatial timeframe of recent events. These weights reflect empirical evidence and expert judgement.
+Following the methodology from Hong et al. (2007), each input layer is normalised to a 0–1 range to ensure comparability across variables. The normalisation spans values specific to Nepal’s topography and environmental conditions. Slope is weighted at 0.3 as steep terrain has the strongest influence. Soil texture and soil type (clay percentage) are both weighted at 0.2. Drainage density, elevation, and land cover are each weighted at 0.1. These weights were developed by Hong et al. by testing which global weights best aligned with regional susceptibility maps.
 
 #### 3. Integrating Incident Points from Bipad Portal
 
