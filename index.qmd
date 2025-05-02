@@ -10,6 +10,7 @@ The project aims to develop an application using Google Earth Engine that policy
 
 [![Global Modelling by Hong et al., 2007](images/hongetal.png)](https://link.springer.com/article/10.1007/s11069-006-9104-z)
 
+
 ------------------------------------------------------------------------
 
 ### Problem Statement
@@ -102,7 +103,7 @@ To recreate Hong et al.'s susceptibility model in GEE, we imported six environme
 
 To find populated areas most susceptible to landslides, we masked our environmental variables to populated areas, and trained a random forest classifier on landslide and randomly generated non-landslide points from Bipad Portal. Each pixel was scored based on the proportion of decision trees voting landslide.
 
-![Random Forest Model Methodology](images/Flowchart2.jpg)
+![Random Forest Model Methodology](images/Flowchart2.png)
 
 ## Interface
 
