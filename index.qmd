@@ -1,5 +1,5 @@
 ---
-title-block-banner: images/header.png
+title-block-banner: images/nepal.png
 title: "Nepal Landslides Risk Application"
 css: style_gen.css
 ---
@@ -112,8 +112,6 @@ The website provides an intuitive, bilingual interface combining expertise and d
 
 The application runs on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.
 
-TO BE REPLACED:
-
 ::: column-page
 <iframe src="https://ee-ajikumaraadarsh.projects.earthengine.app/view/nepallandslide" width="100%" height="800px">
 
@@ -149,3 +147,5 @@ The application’s output is presented as a single raster layer showing normali
 The application’s accuracy will be tested by comparing the predicted high-risk zones against actual landslide points from the Bipad dataset. We will calculate metrics like true positive rate and explore false negatives. If feasible, a Random Forest classifier may be trained using the incident data combined with randomly sampled no-landslide points, incorporating the same environmental variables. This would provide a machine learning-based susceptibility map for comparison with our weighted model. The end goal is to assess both models’ strengths and explore whether hybrid or ensemble techniques could offer improved precision for future applications.
 
 # References
+
+1. Hong, Y., Adler, R. & Huffman, G., 2007. Use of satellite remote sensing data in the mapping of global landslide susceptibility. Natural Hazards, 43(2), pp.245–256. Available at: https://doi.org/10.1007/s11069-006-9104-z

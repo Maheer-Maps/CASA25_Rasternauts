@@ -1,77 +1,132 @@
-
-
+/* ---------- General Layout and Background ---------- */
 body {
-    background-color: #e5dece; /* Change to your desired color */
+    background-color: #f3efe6; /* Warm sand background */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    color: #3b322c; /* Rich bark brown */
+    line-height: 1.7;
 }
 
+/* ---------- Headings ---------- */
 h1, .h1 {
-    color: #715109; /* Change to your desired color */
+    color: #3b322c; /* Bark brown */
+    font-size: 3rem;
+    font-weight: 700;
 }
 
-h2, .h2, h3, .h3 {
-    color: #917b49; /* Default color for h2 */
+h2, .h2 {
+    color: #5a5d3c; /* Olive green */
+    font-size: 2.2rem;
+    font-weight: 600;
 }
 
-/* Change link colors */
+h3, .h3 {
+    color: #7b7f5f; /* Sage green */
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+/* ---------- Links ---------- */
 a {
-    color: #715109; /* Default link color */
+    color: #5a5d3c; /* Olive green */
+    text-decoration: none;
+    font-weight: 500;
 }
 
 a:hover,
 a:visited {
-    color: #afa283; /* Color for hover and visited links */
+    color: #9c8b70; /* Clay brown on hover */
+    text-decoration: underline;
 }
 
-
+/* ---------- Sidebar TOC Styles ---------- */
 .sidebar nav[role=doc-toc] ul > li > a.active,
 .sidebar nav[role=doc-toc] ul > li > ul > li > a.active,
 .sidebar nav[role=doc-toc] ul > li > a:hover,
 .sidebar nav[role=doc-toc] ul > li > ul > li > a:hover {
-    color: #afa283 !important; /* Color for active and hover */
-    border-left: 1px solid #afa283; /* Border for active links */
-}
-#title-block-header{
-  width: 100%;
-}
-.quarto-title-block .quarto-title-banner{
-    height: 350px;
-    display: flex;                  /* Change to flex */
-    justify-content: center;        /* Center horizontally */
-    align-items: center;            /* Center vertically */
-    text-align: center;  
-}
-  
-#title-block-header.quarto-title-block.default .quarto-title .title {
-  color: #e5dece;
-  text-align: center;
-  font-size: 74px;
+    color: #9c8b70 !important;
+    border-left: 2px solid #9c8b70;
+    padding-left: 8px;
 }
 
-.footer-items .nav-link{
-  color: #715109 !important; 
-}
-
-table {
-    border-collapse: collapse;
+/* ---------- Title Banner ---------- */
+#title-block-header {
     width: 100%;
-    margin: 20px 0;
-    font-family: Arial, sans-serif;
+}
 
-  }
-  th, td {
-    border: 3px solid #333;
-    padding: 8px 12px;
-    vertical-align: middle;            
+.quarto-title-block .quarto-title-banner {
+    height: 350px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-  }
-  td.description {
-    text-align: left;
-  }
-  th {
-    font-weight: bold;
-    align-items: center;          
+    background-color: #5a5d3c; /* Deep olive background */
+}
+
+#title-block-header.quarto-title-block.default .quarto-title .title {
+    color: #ffffff; /* Pure white for contrast */
     text-align: center;
+    font-size: 4.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Optional for readability */
+}
+
+/* ---------- Footer ---------- */
+.footer-items .nav-link {
+    color: #5a5d3c !important;
+    font-size: 0.95rem;
+}
+
+/* ---------- Optional Enhancements ---------- */
+p {
+    font-size: 1.1rem;
+}
+
+code {
+    background-color: #e7e1d3;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: ui-monospace, "SF Mono", "Roboto Mono", "Courier New", monospace;
+}
+
+/* ---------- Table Styles ---------- */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 24px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background-color: #fdfcf9;
+    border: 1px solid #ccc0ad;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+th, td {
+    padding: 14px 16px;
     vertical-align: middle;
+    text-align: center;
+    border-bottom: 1px solid #e1d9c7;
+    color: #3b322c;
+}
 
-  }
+th {
+    background-color: #e7ddc9;
+    color: #3b322c;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
 
+td.description {
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f6f3ee;
+}
+
+tr:hover {
+    background-color: #f0e9dc;
+}
