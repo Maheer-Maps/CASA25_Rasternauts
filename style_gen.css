@@ -50,3 +50,28 @@ a:visited {
 .footer-items .nav-link{
   color: #715109 !important; 
 }
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+
+  }
+  th, td {
+    border: 3px solid #333;
+    padding: 8px 12px;
+    vertical-align: middle;            
+    text-align: center;
+  }
+  td.description {
+    text-align: left;
+  }
+  th {
+    font-weight: bold;
+    align-items: center;          
+    text-align: center;
+    vertical-align: middle;
+
+  }
+

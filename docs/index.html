@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.6.40">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,17 +35,23 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-9e228d6d4d66c12a9d11739da31c2b1c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-3fbdbd5bb53a8cece234703cc9652e14.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -54,6 +60,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -109,10 +116,12 @@ background-size: cover;
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a>
   <ul class="collapse">
   <li><a href="#susceptibility-model" id="toc-susceptibility-model" class="nav-link" data-scroll-target="#susceptibility-model">Susceptibility Model</a></li>
+  <li><a href="#random-forest-model" id="toc-random-forest-model" class="nav-link" data-scroll-target="#random-forest-model">Random Forest Model</a></li>
   </ul></li>
+  <li><a href="#interface" id="toc-interface" class="nav-link" data-scroll-target="#interface">Interface</a></li>
   <li><a href="#the-application" id="toc-the-application" class="nav-link" data-scroll-target="#the-application">The Application</a>
   <ul class="collapse">
-  <li><a href="#interface" id="toc-interface" class="nav-link" data-scroll-target="#interface">Interface</a></li>
+  <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How it Works</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
@@ -124,104 +133,232 @@ background-size: cover;
 
 
 
+
 <section id="project-summary" class="level2">
 <h2 class="anchored" data-anchor-id="project-summary">Project Summary</h2>
-<p>The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from “Use of satellite remote sensing data in the mapping of global landslide susceptibility” by Hong et al.&nbsp;The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the <a href="https://bipadportal.gov.np/incidents/">Bipad Portal</a> (Dates: 6-13 April, 2025).</p>
+<p>The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from “Use of satellite remote sensing data in the mapping of global landslide susceptibility” by Hong et al (2007). The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the <a href="https://bipadportal.gov.np/incidents/">Bipad Portal</a> (Dates: 6-13 April, 2025).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://link.springer.com/article/10.1023/B%3ANHAZ.0000007202.12543.3a"><img src="images/Report.png" class="img-fluid figure-img"></a></p>
-<figcaption class="figure-caption">Fabbri et al, 2003</figcaption>
+<p><a href="https://link.springer.com/article/10.1007/s11069-006-9104-z"><img src="images/hongetal.png" class="img-fluid figure-img" alt="Global Modelling by Hong et al., 2007"></a></p>
+<figcaption>Global Modelling by Hong et al., 2007</figcaption>
 </figure>
 </div>
 <hr>
 <section id="problem-statement" class="level3">
 <h3 class="anchored" data-anchor-id="problem-statement">Problem Statement</h3>
-<p>Nepal’s dynamic urban and rural landscapes—marked by shifting terrains, expanding settlements, and changing land uses, are rarely reflected in existing disaster management systems. Despite being highly prone to landslides, the country lacks regularly updated susceptibility maps that can guide timely interventions. This gap poses serious risks to vulnerable populations and critical infrastructure. Our application aims to bridge this disconnect by providing an accessible, up-to-date platform for policymakers, planners, and stakeholders to visualize high-risk zones, assess vulnerable people and land, and make informed decisions for mitigation and resilience. As it is better to be prepared, rather than make hasty decisions during a disaster.</p>
+<p>Almost 80% of the total area of Nepal is prone to landslides (Department of Water Induced Disaster Prevention, 2015), so easily accessible research into which areas are most susceptible is motivated. Updating research to find which factors make areas most vulnerable to damaging landslides in Nepal provides information on the locations of vulnerable populations and critical infrastructure. This research must be easily interpretable for academics and, crucially, local administrators. Our application aims to bridge this disconnect by providing an accessible, Nepali-language platform for policymakers, planners, and stakeholders to visualize high susceptibility zones, and make informed decisions for mitigation and resilience.</p>
 </section>
 <section id="end-user" class="level3">
 <h3 class="anchored" data-anchor-id="end-user">End User</h3>
-<p>The main end users of this application are urban local bodies, disaster management cells, and policymakers. These are the stakeholders who need updated landslide susceptibility maps to take well-informed decisions. By focusing on local municipalities, we can help ensure that structures and buildings are not violating Development Control Regulations (DCRs). Issues like poor construction practices, slope cutting, and blocked drainage networks are major contributors to landslide hazards. With this application, we aim to give authorities an easy-to-use platform where they can identify vulnerable areas and population.</p>
+<p>Our platform is designed for hybrid users across academia and specific administrative bodies involved in landslide management in Nepal. These users require scientifically robust yet accessible tools to develop policies. In the past, the gap between academic knowledge and local awareness limited the practical benefits of research—as seen during the 2015 earthquake and 2021 Melamchi floods. By delivering these models through a Nepali default website rather than papers, we aim to improve accessibility, utility, and real-world impact for those affected by landslides and responsible for crisis response.</p>
 </section>
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
-<ul>
-<li><p>Shapefile: National boundary of Nepal</p></li>
-<li><p>Elevation/Slope: NASA SRTM Digital Elevation 30m</p></li>
-<li><p>Land Cover: MODIS Land Cover Type (2020)</p></li>
-<li><p>Hydrology: WWF HydroSHEDS flow accumulation</p></li>
-<li><p>Soil Texture: OpenLandMap Soil Texture Class (USDA System)</p></li>
-<li><p>Soil Type: OpenLandMap Clay Content</p></li>
-<li><p>Validation: Bipad Portal landslide incident points (6–13 April 2025)</p></li>
-</ul>
+<p>Our data is derived from a variety of public resources, making it possible for future researchers to easily reproduce our work.</p>
+<table>
+<tbody><tr>
+<th>
+Category
+</th>
+<th>
+Dataset
+</th>
+<th>
+Description
+</th>
+<th>
+Source
+</th>
+</tr>
+<tr>
+<td rowspan="6">
+GEE
+</td>
+<td>
+Elevation/Slope
+</td>
+<td class="description">
+NASA SRTM Digital Elevation 30m
+</td>
+<td>
+<a href="https://developers.google.com/earth-engine/datasets/catalog/USGS_SRTMGL1_003">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+Land Cover
+</td>
+<td class="description">
+MODIS Land Cover Type (2020)
+</td>
+<td>
+<a href="https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+Hydrology
+</td>
+<td class="description">
+WWF HydroSHEDS flow accumulation
+</td>
+<td>
+<a href="https://developers.google.com/earth-engine/datasets/catalog/WWF_HydroSHEDS_15ACC">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+Soil Texture
+</td>
+<td class="description">
+OpenLandMap Soil Texture Class (USDA System)
+</td>
+<td>
+<a href="https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_TEXTURE-CLASS_USDA-TT_M_v02">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+Soil Type
+</td>
+<td class="description">
+OpenLandMap Clay Content
+</td>
+<td>
+<a href="https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_CLAY-WFRACTION_USDA-3A1A1A_M_v02">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+Population Density
+</td>
+<td class="description">
+Global Human Settlement Layer of spatial distribution of residential population
+</td>
+<td>
+<a href="https://developers.google.com/earth-engine/datasets/catalog/JRC_GHSL_P2023A_GHS_POP">Link</a>
+</td>
+</tr>
+<tr>
+<td rowspan="4">
+Other
+</td>
+<td>
+Historical Landslides
+</td>
+<td class="description">
+Official reported landslide incident points (2011 - April 2025)
+</td>
+<td>
+<a href="https://bipadportal.gov.np/incidents/">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+Census Population
+</td>
+<td class="description">
+Official Population per District 2021 Census
+</td>
+<td>
+<a href="https://censusnepal.cbs.gov.np/results/population#population_size_and_distribution">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+Country Boundary
+</td>
+<td class="description">
+Official boundary layer for Nepal
+</td>
+<td>
+<a href="https://nationalgeoportal.gov.np/#/metadata/96">Link</a>
+</td>
+</tr>
+<tr>
+<td>
+Districts Boundaries
+</td>
+<td class="description">
+Official bouundaries of Nepal’s 77 districts
+</td>
+<td>
+<a href="https://nationalgeoportal.gov.np/#/metadata/95p">Link</a>
+</td>
+</tr>
+</tbody></table>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="https://bipadportal.gov.np/incidents/"><img src="images/Incidents.png" class="img-fluid figure-img"></a></p>
-<figcaption class="figure-caption">Bipad Portal Nepal National Incidents Map, 2025</figcaption>
+<p><a href="https://bipadportal.gov.np/incidents/"><img src="images/Incidents.png" class="img-fluid figure-img" alt="Bipad Portal Nepal National Incidents Map, 2025"></a></p>
+<figcaption>Bipad Portal Nepal National Incidents Map, 2025</figcaption>
 </figure>
 </div>
+<hr>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
 <section id="susceptibility-model" class="level3">
 <h3 class="anchored" data-anchor-id="susceptibility-model">Susceptibility Model</h3>
-<p>To recreate Hong et al.’s susceptibility model in GEE, we computed six environmental variables and imported them into a weighted linear combination. Each variable was assigned a weight and normalized on a 0-1 scale, and the combination of weights provided a susceptibility score for each pixel. Susceptibility was then normalized 0-1 for the whole of Nepal.</p>
+<p>To recreate Hong et al.’s susceptibility model in GEE, we imported six environmental variables into a weighted linear combination. Each variable was normalized on a 0-1 scale, and in combination with the weights provided a susceptibility score for each pixel. Susceptibility was then normalized 0-1 for the whole of Nepal.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/Flowchart1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Susceptibility Model Methodology</figcaption>
+<figcaption>Susceptibility Model Methodology</figcaption>
 </figure>
 </div>
-<ol type="1">
-<li><p>Filter shapefile to Nepal</p></li>
-<li><p>Extract and clip elevation data, compute slope</p></li>
-<li><p>Analyse land cover, reclassify bare land as higher risk</p></li>
-<li><p>Map water flow to identify erosion-prone areas</p></li>
-<li><p>Assess soil texture, emphasising clay-heavy zones</p></li>
-<li><p>Normalise each factor to a 0–1 scale</p></li>
-<li><p>Weight inputs: Slope (30%), Soil (20%), Rivers (10%), Elevation (10%), Land Cover (10%)</p></li>
-<li><p>Combine layers using a weighted sum model</p></li>
-<li><p>Visualize the risk using a red-yellow-green palette</p></li>
-</ol>
 </section>
+<section id="random-forest-model" class="level3">
+<h3 class="anchored" data-anchor-id="random-forest-model">Random Forest Model</h3>
+<p>To find populated areas most susceptible to landslides, we masked our environmental variables to populated areas, and trained a random forest classifier on landslide and randomly generated non-landslide points from Bipad Portal. Each pixel was scored based on the proportion of decision trees voting landslide.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Flowchart2.jpg" class="img-fluid figure-img"></p>
+<figcaption>Random Forest Model Methodology</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="interface" class="level2">
+<h2 class="anchored" data-anchor-id="interface">Interface</h2>
+<p>The website provides an intuitive, bilingual interface combining expertise and data into robust models, offering comparative visualisations and statistical summaries. With Nepali spoken by 78% of the population and English fluency estimated at 20–50%, the platform prioritises clarity through map-based dashboards and toggleable language options to enhance accessibility and local impact.</p>
 </section>
 <section id="the-application" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="the-application">The Application</h2>
-<p>The final application will run on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and potentially overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.</p>
+<p>The application runs on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.</p>
 <p>TO BE REPLACED:</p>
 <div class="column-page">
 <iframe src="https://ee-ajikumaraadarsh.projects.earthengine.app/view/nepallandslide" width="100%" height="800px">
 </iframe>
 </div>
-<section id="interface" class="level3">
-<h3 class="anchored" data-anchor-id="interface">Interface</h3>
-<p>(How does your application’s interface work to address the needs of your end user?) ### How it Works</p>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">How it Works</h3>
 <section id="data-preparation-and-selection" class="level4">
 <h4 class="anchored" data-anchor-id="data-preparation-and-selection">1. Data Preparation and Selection</h4>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/1_Load and look at data.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Loading Data, 2025</figcaption>
+<figcaption>Loading Data, 2025</figcaption>
 </figure>
 </div>
-<p>The model begins by importing a shapefile defining Nepal’s boundaries, ensuring all subsequent datasets are spatially clipped to the relevant region. Various geospatial catalogues are explored for coverage, accuracy, and temporal relevance. USGS SRTM is selected for elevation and slope analysis due to its global 30m resolution. MODIS land cover data from 2020 is chosen for consistency and recency. WWF HydroSHEDS is used for hydrology, while OpenLandMap provides soil texture and clay content. These layers form the basis of our model, chosen specifically for their compatibility, open access, and prior use in landslide risk assessments globally.</p>
+<p>This model clips Hong et al.’s landslide susceptibility model to Nepal’s boundaries. Greater slope and elevation, as calculated from NASA SRTM Digital Elevation, are associated with higher susceptibility. Looser, coarser soil texture, from OpenLandMap Soil Texture Class, is associated with higher susceptibility. A soil type with more clay, from OpenLandMap Clay Content, is associated with higher susceptibility. Greater drainage density, from WWF HydroSHEDS flow accumulation, is associated with lower susceptibility. Each MODIS land cover type was assigned a susceptibility value by Hong et al.</p>
 </section>
 <section id="risk-factor-normalisation-and-weighting" class="level4">
 <h4 class="anchored" data-anchor-id="risk-factor-normalisation-and-weighting">2. Risk Factor Normalisation and Weighting</h4>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/2_Making_The_Model.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Normalizing and Weighting Data, 2025</figcaption>
+<figcaption>Normalizing and Weighting Data, 2025</figcaption>
 </figure>
 </div>
-<p>Following the methodology from Remondo et al.&nbsp;(Spain, 2005), each input layer is normalised to a 0–1 range to ensure comparability across variables. The normalisation spans values specific to Nepal’s topography and environmental conditions. Slope is weighted highest (30%) as steep terrain correlates strongly with landslide incidence. Soil texture and clay fraction contribute 20%, given their influence on water retention. Distance to streams (10%) accounts for erosion potential, while elevation (10%) and land cover (10%) further contextualise surface vulnerability. MODIS data from 2020 is used to match the spatial timeframe of recent events. These weights reflect empirical evidence and expert judgement.</p>
+<p>Following the methodology from Hong et al.&nbsp;(2007), each input layer is normalised to a 0–1 range to ensure comparability across variables. The normalisation spans values specific to Nepal’s topography and environmental conditions. Slope is weighted at 0.3 as steep terrain has the strongest influence. Soil texture and soil type (clay percentage) are both weighted at 0.2. Drainage density, elevation, and land cover are each weighted at 0.1. These weights were developed by Hong et al.&nbsp;by testing which global weights best aligned with regional susceptibility maps.</p>
 </section>
 <section id="integrating-incident-points-from-bipad-portal" class="level4">
 <h4 class="anchored" data-anchor-id="integrating-incident-points-from-bipad-portal">3. Integrating Incident Points from Bipad Portal</h4>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/4_GeoJson Points.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Incident Points in GEE, 2025</figcaption>
+<figcaption>Incident Points in GEE, 2025</figcaption>
 </figure>
 </div>
 <p>To validate the model, recent landslide incidents (6–13 April 2025) are scraped from Nepal’s Bipad Portal, which maintains a national disaster event database. Using spatial extraction tools and basic automation, the event point data is converted into a GeoJSON format. This is then uploaded into Google Earth Engine for visual comparison against the model output. These points represent ground-truth observations and are critical for assessing whether high-risk zones in the application align with actual landslide locations. This step bridges remote sensing with on-the-ground incident reporting and provides the foundation for further accuracy testing.</p>
@@ -278,18 +415,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -321,11 +447,53 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
-  function tippyHover(el, contentFn) {
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/maheer-maps\.github\.io\/CASA25_Rasternauts\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+          // target, if specified
+          link.setAttribute("target", "_blank");
+          if (link.getAttribute("rel") === null) {
+            link.setAttribute("rel", "noopener");
+          }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -335,8 +503,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -348,7 +525,129 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -392,6 +691,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -417,6 +717,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -474,31 +800,25 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       });
     }
   }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var filterRegex = new RegExp("https:\/\/maheer-maps\.github\.io\/CASA25_Rasternauts\/");
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-          // target, if specified
-          link.setAttribute("target", "_blank");
-      }
-    }
 });
 </script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left"></div>   
-    <div class="nav-footer-center"></div>
+    <div class="nav-footer-left">
+<div style="text-align: left">
+CASA0025 Group Project
+</div>
+</div>   
+    <div class="nav-footer-center">
+<div style=" color: #715109">
+<strong>Adarsh, Clare, Dan, Maheer, Norah, and Rob </strong>
+</div>
+</div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/Maheer-Maps/CASA25_Rasternauts">
+    <a class="nav-link" href="https://github.com/Maheer-Maps/CASA25_Rasternauts" target="_blank">
       <i class="bi bi-github" role="img">
 </i> 
     </a>
@@ -507,6 +827,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
+
 
 
 
