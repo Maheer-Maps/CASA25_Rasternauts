@@ -147,6 +147,25 @@ The application’s output is presented as a single raster layer showing normali
 
 The application’s accuracy will be tested by comparing the predicted high-risk zones against actual landslide points from the Bipad dataset. We will calculate metrics like true positive rate and explore false negatives. If feasible, a Random Forest classifier may be trained using the incident data combined with randomly sampled no-landslide points, incorporating the same environmental variables. This would provide a machine learning-based susceptibility map for comparison with our weighted model. The end goal is to assess both models’ strengths and explore whether hybrid or ensemble techniques could offer improved precision for future applications.
 
+
+### Key Features Beyond the Demo
+
+While our demo showcases the app's core functionality, several critical features work behind the scenes to enhance its performance and reliability. In this section, we highlight key capabilities implemented to optimize efficiency and ensure a seamless user experience.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+#| classes: '.g-col-lg-6 .g-col-12 .g-col-md-12'
+#| #| class.output: none
+source("supporting files/carousel.R")
+carousel("gallery-carousel", 5000, 
+         yaml.load_file("supporting files/carousel.yml"))
+```
+
+
+ 
 # References
 
 1. Hong, Y., Adler, R. & Huffman, G., 2007. Use of satellite remote sensing data in the mapping of global landslide susceptibility. Natural Hazards, 43(2), pp.245–256. Available at: https://doi.org/10.1007/s11069-006-9104-z
+
+2. Nepal in data, n.d. Major Languages Spoken As Mother Tongue in Nepal. Available at: https://nepalindata.com/insight/major-languages-spoken-as-mother-tongue-in-nepal/
+
+

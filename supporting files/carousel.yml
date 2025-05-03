@@ -1,0 +1,168 @@
+- title: "Multi-Language Support"
+  caption: "Designed with the end user in mind, the app supports Nepal’s primary languages—Nepali (~44%), Maithili (~12%), and Bhojpuri (~6%)—ensuring accessibility for diverse users."
+  image: "images/App_multiLanguage.png"
+  code: "\
+  // Language selection dropdown\n\
+  var languageSelect = ui.Select({\n\
+    items: [\n\
+      {label: 'English', value: 'English'},\n\
+      {label: 'Nepali', value: 'Nepali'},\n\
+      {label: 'Maithili', value: 'Maithili'},\n\
+      {label: 'Bhojpuri', value: 'Bhojpuri'}\n\
+    ],\n\
+    onChange: function(value) {\n\
+      resetToNationalView();\n\
+      updateLanguage(value);\n\
+    }\n\
+  });\n\
+  / Translation dictionary (Sample)\n\
+  var LANGUAGE_TRANSLATIONS = {\n\
+    'Nepali': { 'Click on the map or select from list:': 'नक्सामा क्लिक गर्नुहोस् वा सूचीबाट चयन गर्नुहोस्:' },\n\
+    'Maithili': { 'Click on the map or select from list:': 'नक्शा पर क्लिक करू या सूची सँ चुनू' },\n\
+    'Bhojpuri': { 'Click on the map or select from list:': 'नक्शा प क्लिक करीं या सूची से चुनीं' }\n\
+  };
+  "
+  link: ""
+- title: "Efficient Caching"
+  caption: "Leverages local memory for server-side calculations, the app avoids redundant computations, ensuring responsiveness even with large datasets."
+  image: "images/App_cashing.png"
+  code: "\
+  // Cache national statistics at startup\n\
+  ee.Dictionary({\n\
+    incidentCount: districtFactors.aggregate_sum('incidentCount'),\n\
+    deaths: districtFactors.aggregate_sum('deaths'),\n\
+    injuries: districtFactors.aggregate_sum('injuries'),\n\
+    infrastructureDestroyed: districtFactors.aggregate_sum('infraDestroyed')\n\
+  }).evaluate(\n\
+    function(values) {\n\
+      // Cached values used in national overview for quick loading\n\
+      nationalStats.incidentCount = Number(values.incidentCount) || 0; // Total incidents\n\
+      nationalStats.deaths = Number(values.deaths) || 0; // Total deaths\n\
+      nationalStats.injuries = Number(values.injuries) || 0; // Total injuries\n\
+      nationalStats.infrastructureDestroyed = Number(values.infrastructureDestroyed) || 0; // Total infrastructure damage\n\
+      initializeAppAfterCaching();\n\
+    }\n\
+  );"
+  link: ""
+- title: "Robust Error Handling"
+  caption: "Handles clicks outside study areas and data issues with clear messages to keep users informed and engaged, preventing crashes and enhancing reliability."
+  image: "images/App_outsideclick.png"
+  code: "\
+  // Handle clicks outside Nepal\n\
+  NepalBoundary.geometry().contains(point).evaluate(function(isInside) {\n\
+    if (!isInside) {\n\
+      StatisticsPanel.clear();\n\
+      var widgets = controlPanel.widgets();\n\
+      if (widgets.indexOf(districtInstructionLabel) !== -1) {\n\
+        widgets.remove(districtInstructionLabel);\n\
+      }\n\
+      if (widgets.indexOf(districtSelectPanel) !== -1) {\n\
+        widgets.remove(districtSelectPanel);\n\
+      }\n\
+      StatisticsPanel.add(ui.Label(translate('Click outside Nepal boundary. Please select a point within Nepal.'), STYLES.SUBTITLE));\n\
+      StatisticsPanel.add(ui.Button({\n\
+        label: translate('Reset to National Overview'),\n\
+        onClick: function() {\n\
+          resetToNationalView();\n\
+        },\n\
+        style: { margin: '10px auto', stretch: 'horizontal', textAlign: 'center' }\n\
+      }));\n\
+    }
+  });"
+  link: ""
+- title: "Optimal Rendering"
+  caption: "Using high-resolution raster data, the app clips and renders relevant layers for the selected district only instead of the entire country, improving speed and user experience."
+  image: "images/App_clipping.png"
+  code: "\
+  // Highlight and clip layers for the selected district\n\
+  function highlightDistrict(district) {\n\
+    // Simplify geometry to reduce computation\n\
+    var districtGeometry = district.geometry().simplify({maxError: 100});\n\
+    // Clip layers to district for efficient rendering\n\
+    var clippedLandslide = landslidePoints.filterBounds(districtGeometry);\n\
+    var clippedSus = LandslideSusceptibility.clip(districtGeometry);\n\
+  \n\
+    clippedLandslideFeatures = null;\n\
+    clippedLandslide.evaluate(function(features) {\n\
+      clippedLandslideFeatures = features.features || [];\n\
+    });\n\
+  \n\
+    clearMapLayersExceptHighlight();\n\
+    // Add clipped layers to map\n\
+    var susceptibilityLayerclip = ui.Map.Layer(clippedSus, {min: 0, max: 1, palette: [STYLES.COLORS.LOW_RISK, STYLES.COLORS.MEDIUM_RISK, STYLES.COLORS.HIGH_RISK]});\n\
+    Map.layers().add(susceptibilityLayerclip);\n\
+  }"
+  link: ""
+- title: "Summary Popups"
+  caption: "Clicking a landslide point in district view displays a popup with aggregated details, aiding understanding of past events at specific locations."
+  image: "images/App_popup.png"
+  code: "\
+    // Detect landslide points within buffer and aggregate data\n\
+    var clickRadius = 0.0027; // ~300 meters\n\
+    var matchingFeatures = [];\n\
+    clippedLandslideFeatures.forEach(function(feature) {\n\
+      var featureCoords = feature.geometry.coordinates;\n\
+      var distance = Math.sqrt(\n\
+        Math.pow(clickLon - featureLon, 2) + Math.pow(clickLat - featureLat, 2)\n\
+      );\n\
+      if (distance < clickRadius) {\n\
+        matchingFeatures.push(feature);\n\
+      }\n\
+    });\n\
+    \n\
+    if (matchingFeatures.length > 0) {\n\
+      var totalDeaths = 0, totalInjuries = 0, incidentCount = matchingFeatures.length;\n\
+      matchingFeatures.forEach(function(feature) {\n\
+        var props = feature.properties || {};\n\
+        totalDeaths += props.peopleDeathCount || 0;\n\
+        totalInjuries += props.peopleInjuredCount || 0;\n\
+      });\n\
+      showLandslidePopup({ incidentCount: incidentCount, totalDeaths: totalDeaths, totalInjuries: totalInjuries });\n\
+    }\n\
+    \n\
+    // Display aggregated data in popup\n\
+    function showLandslidePopup(aggregatedData, coords) {\n\
+      var titleTemplate = translate('Landslide Events ({0} Incidents)');\n\
+      var title = titleTemplate.replace('{0}', aggregatedData.incidentCount);\n\
+      contentPanel.add(ui.Label(title, { fontSize: '16px', fontWeight: 'bold' }));\n\
+      contentPanel.add(createRow('Deaths:', aggregatedData.totalDeaths));\n\
+      contentPanel.add(createRow('Injuries:', aggregatedData.totalInjuries));\n\
+    }"
+  link: ""
+- title: "Interactive Analysis"
+  caption: "Users can interact with districts by clicking on the map, selecting from a dropdown, or using connected charts, enabling seamless data exploration."
+  image: "images/App_interactivity.png"
+  code: "\
+  // Chart interaction in national overview\n\
+  topDistrictsChart.onClick(function(district) {\n\
+    if (district) {\n\
+      var originalDistrictName = district.toUpperCase();\n\
+      selectDistrict(originalDistrictName);\n\
+    }\n\
+  });\n\
+  \n\
+  // Alternative: District dropdown selection\n\
+  districtSelect = ui.Select({\n\
+    items: districtSelectItems,\n\
+    placeholder: translate('Select District:'),\n\
+    onChange: function(value) {\n\
+      if (value === 'National Overview') {\n\
+        resetToNationalView();\n\
+      } else {\n\
+        selectDistrict(value);\n\
+      }\n\
+    }\n\
+  });\n\
+  \n\
+  // Alternative: Map click selection\n\
+  Map.onClick(function(coords) {\n\
+    var point = ee.Geometry.Point(coords.lon, coords.lat);\n\
+    var clickedDistrict = districts.filterBounds(point).first();\n\
+    if (clickedDistrict) {\n\
+      clickedDistrict.get('DISTRICT').evaluate(function(districtName) {\n\
+        districtName = districtName.trim().toUpperCase();\n\
+        selectDistrict(districtName);\n\
+      });\n\
+    }
+  });"
+  link: ""
