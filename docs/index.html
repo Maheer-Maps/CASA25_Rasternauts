@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -35,10 +69,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-9e228d6d4d66c12a9d11739da31c2b1c.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-86daaaaad7353f9cc0c554efc1dd6d94.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3fbdbd5bb53a8cece234703cc9652e14.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-47e95e32649f5ea4ff250a3e176ad85f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -122,6 +156,7 @@ background-size: cover;
   <li><a href="#the-application" id="toc-the-application" class="nav-link" data-scroll-target="#the-application">The Application</a>
   <ul class="collapse">
   <li><a href="#how-it-works" id="toc-how-it-works" class="nav-link" data-scroll-target="#how-it-works">How it Works</a></li>
+  <li><a href="#demo" id="toc-demo" class="nav-link" data-scroll-target="#demo">Demo</a></li>
   <li><a href="#key-features-beyond-the-demo" id="toc-key-features-beyond-the-demo" class="nav-link" data-scroll-target="#key-features-beyond-the-demo">Key Features Beyond the Demo</a></li>
   </ul></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
@@ -156,7 +191,6 @@ background-size: cover;
 </section>
 <section id="data" class="level2">
 <h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>Our data is derived from a variety of public resources, making it possible for future researchers to easily reproduce our work.</p>
 <table>
 <tbody><tr>
 <th>
@@ -289,13 +323,6 @@ Official bouundaries of Nepal’s 77 districts
 </td>
 </tr>
 </tbody></table>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://bipadportal.gov.np/incidents/"><img src="images/Incidents.png" class="img-fluid figure-img" alt="Bipad Portal Nepal National Incidents Map, 2025"></a></p>
-<figcaption>Bipad Portal Nepal National Incidents Map, 2025</figcaption>
-</figure>
-</div>
-<hr>
 </section>
 <section id="methodology" class="level2">
 <h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
@@ -322,55 +349,154 @@ Official bouundaries of Nepal’s 77 districts
 </section>
 <section id="interface" class="level2">
 <h2 class="anchored" data-anchor-id="interface">Interface</h2>
-<p>The website provides an intuitive, bilingual interface combining expertise and data into robust models, offering comparative visualisations and statistical summaries. With Nepali spoken by 78% of the population and English fluency estimated at 20–50%, the platform prioritises clarity through map-based dashboards and toggleable language options to enhance accessibility and local impact.</p>
+<p>The website provides an intuitive, multilingual interface combining expertise and data into robust models, offering comparative visualizations and statistical summaries. The platform prioritizes clarity through map-based dashboards and toggleable language options to enhance accessibility and local impact.</p>
+<div class="columns" data-layout-align="center">
+<div class="column" style="width:46%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/UI_2.png" class="img-fluid figure-img"></p>
+<figcaption>District Level View</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width:46%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/UI_3.png" class="img-fluid figure-img"></p>
+<figcaption>Methodology View</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
 <section id="the-application" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="the-application">The Application</h2>
+<section id="how-it-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-it-works">How it Works</h3>
+<section id="data-preparation-and-precomputations" class="level4">
+<h4 class="anchored" data-anchor-id="data-preparation-and-precomputations">1. Data Preparation and Precomputations</h4>
+<p>To handle complex computations, separate scripts were developed for the two methodologies explained above. Results are imported into the app as precomputed layers.</p>
+<p><strong>Imported Precomputed Layers:</strong></p>
+<ul>
+<li><p>Environmental Landslide Susceptibility: Maps susceptibility using environmental variables.</p></li>
+<li><p>Normalized Landslide Susceptibility: Adjusted for population exposure.</p></li>
+<li><p>Random Forest Landslide Probability: ML-based risk focused on populated areas.</p></li>
+</ul>
+<p><strong>District-Level Aggregation:</strong></p>
+<p>A dedicated script was built to aggregate historical reported landslide data with impact metrics (e.g., incidents, deaths, injuries, destroyed infrastructure), alongside population and susceptibility metrics per district. It also includes engineered metrics such as incidents per km² and nearest districts (determined via spatial proximity of centroids) for comparative analysis.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Compute distances to other districts and find two nearest neighbors using precomputed centroids</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> districtsWithDistance <span class="op">=</span> districtFactors<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(otherDistrict) {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> otherName <span class="op">=</span> otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'DISTRICT'</span>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> lon2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'centroid_lon'</span>))<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> lat2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'centroid_lat'</span>))<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Approximate distance using Euclidean distance in lat/lon </span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> distance <span class="op">=</span> lon1<span class="op">.</span><span class="fu">subtract</span>(lon2)<span class="op">.</span><span class="fu">pow</span>(<span class="dv">2</span>)<span class="op">.</span><span class="fu">add</span>(lat1<span class="op">.</span><span class="fu">subtract</span>(lat2)<span class="op">.</span><span class="fu">pow</span>(<span class="dv">2</span>))<span class="op">.</span><span class="fu">sqrt</span>()<span class="op">;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> otherDistrict<span class="op">.</span><span class="fu">set</span>(<span class="st">'distance'</span><span class="op">,</span> distance)<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nearbyDistricts <span class="op">=</span> districtsWithDistance</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">neq</span>(<span class="st">'DISTRICT'</span><span class="op">,</span> districtName))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">sort</span>(<span class="st">'distance'</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">limit</span>(<span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Extract the two nearest neighbors</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> neighbor1 <span class="op">=</span> nearbyDistricts<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> neighbor2 <span class="op">=</span> nearbyDistricts<span class="op">.</span><span class="fu">toList</span>(<span class="dv">2</span>)<span class="op">.</span><span class="fu">get</span>(<span class="dv">1</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="interactive-visualization-and-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="interactive-visualization-and-analysis">2. Interactive Visualization and Analysis</h4>
+</section>
+<section id="national-overview" class="level4">
+<h4 class="anchored" data-anchor-id="national-overview">National Overview</h4>
+<p>At startup, national-level statistics are displayed, highlighting aggregated data. A pie chart shows population risk distribution across susceptibility zones (Low, Medium, High), and a bar chart lists the top 5 districts by impact metric, allowing users to switch metrics and zoom into a district by clicking a bar.</p>
+<section id="susceptibility-zones" class="level5">
+<h5 class="anchored" data-anchor-id="susceptibility-zones"><strong>susceptibility zones</strong></h5>
+<p>Susceptibility zones are defined as Low (&lt;0.3), Medium (0.3–0.5), and High (&gt;0.5), identified by analyzing the distribution of susceptibility values from the built Susceptibility model.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Generate a histogram of susceptibility values</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> histogram <span class="op">=</span> LandslideSusceptibility<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">histogram</span>({<span class="dt">min</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">max</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">steps</span><span class="op">:</span> <span class="dv">100</span>})<span class="op">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">geometry</span><span class="op">:</span> NepalBoundary<span class="op">.</span><span class="fu">geometry</span>()<span class="op">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">scale</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> <span class="co">// Match the scale used in the app for consistency</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">maxPixels</span><span class="op">:</span> <span class="fl">1e10</span><span class="op">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">bestEffort</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Extract the histogram data</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> histogramDict <span class="op">=</span> ee<span class="op">.</span><span class="fu">Dictionary</span>(histogram<span class="op">.</span><span class="fu">get</span>(<span class="st">'susceptibility'</span>))<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> values <span class="op">=</span> ee<span class="op">.</span><span class="fu">List</span>(histogramDict<span class="op">.</span><span class="fu">get</span>(<span class="st">'histogram'</span>))<span class="op">;</span> <span class="co">// Frequency counts</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> bucketEdges <span class="op">=</span> ee<span class="op">.</span><span class="fu">List</span>(histogramDict<span class="op">.</span><span class="fu">get</span>(<span class="st">'bucketMeans'</span>))<span class="op">;</span> <span class="co">// Bin centers</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">// Print the histogram for analysis</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">'Histogram of Susceptibility Values:'</span><span class="op">,</span> histogram)<span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co">// Define susceptibility zones based on histogram-derived thresholds</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> thresholdZones <span class="op">=</span> LandslideSusceptibility</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">lt</span>(<span class="fl">0.3</span>)<span class="op">,</span> <span class="dv">1</span>) <span class="co">// Low Risk: &lt; 0.3</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">gte</span>(<span class="fl">0.3</span>)<span class="op">.</span><span class="fu">and</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">select</span>(<span class="st">'slope'</span>)<span class="op">.</span><span class="fu">lte</span>(<span class="fl">0.5</span>))<span class="op">,</span> <span class="dv">2</span>) <span class="co">// Medium Risk: 0.3–0.5</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">gt</span>(<span class="fl">0.5</span>)<span class="op">,</span> <span class="dv">3</span>) <span class="co">// High Risk: &gt; 0.5</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'zone'</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">updateMask</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">mask</span>())</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">clip</span>(NepalBoundary)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+</section>
+<section id="district-level-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="district-level-analysis">District-Level Analysis:</h4>
+<p>This view provides detailed district analysis, showing key metrics like average susceptibility, population, and incidents per km², alongside comparisons with national averages and the two nearest districts. Historical landslides are visualized on the map, with popups displaying aggregated details (e.g., deaths, injuries) within a 300m radius of a clicked point.</p>
+</section>
+<section id="methodology-overview" class="level4">
+<h4 class="anchored" data-anchor-id="methodology-overview">Methodology overview:</h4>
+<p>This views allows user to understand the two methodological approaches and compare compares the RF probability map and normalized risk map using split panel</p>
+<p>This view allows users to compare the two methodologies (Environmental Susceptibility and RF) using a split panel. It displays the RF probability map and normalized risk map for populated areas, with a draggable divider for spatial comparison, focusing on population exposure.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Initialize split maps with layers</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> leftMap <span class="op">=</span> ui<span class="op">.</span><span class="fu">Map</span>()<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> rightMap <span class="op">=</span> ui<span class="op">.</span><span class="fu">Map</span>()<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Add risk layers to split maps</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> leftProbabilityLayer <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Layer</span>(probabilityLayer<span class="op">.</span><span class="fu">getEeObject</span>()<span class="op">,</span> probabilityLayer<span class="op">.</span><span class="fu">getVisParams</span>()<span class="op">,</span> <span class="fu">translate</span>(<span class="st">'RF Landslide Probability (Populated Areas)'</span>))<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>leftMap<span class="op">.</span><span class="fu">layers</span>()<span class="op">.</span><span class="fu">add</span>(leftProbabilityLayer)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> rightNormalizedRiskLayer <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Layer</span>(normalizedRiskLayer<span class="op">.</span><span class="fu">getEeObject</span>()<span class="op">,</span> normalizedRiskLayer<span class="op">.</span><span class="fu">getVisParams</span>()<span class="op">,</span> <span class="fu">translate</span>(<span class="st">'Landslide Susceptibility (Populated Areas)'</span>))<span class="op">;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>rightMap<span class="op">.</span><span class="fu">layers</span>()<span class="op">.</span><span class="fu">add</span>(rightNormalizedRiskLayer)<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Link maps for synchronized zooming and panning</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mapLinker <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Linker</span>([leftMap<span class="op">,</span> rightMap])<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">// Set up the split panel for comparison</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> splitPanel <span class="op">=</span> ui<span class="op">.</span><span class="fu">SplitPanel</span>({</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a> <span class="dt">firstPanel</span><span class="op">:</span> leftMap<span class="op">,</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a> <span class="dt">secondPanel</span><span class="op">:</span> rightMap<span class="op">,</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a> <span class="dt">orientation</span><span class="op">:</span> <span class="st">'horizontal'</span><span class="op">,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a> <span class="dt">wipe</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="insights-and-objectives" class="level4">
+<h4 class="anchored" data-anchor-id="insights-and-objectives">3. insights and objectives</h4>
+<p>The app provides actionable insights for disaster preparedness in Nepal by identifying high-risk districts and population exposure. It supports:</p>
+<ul>
+<li><p>Risk Prioritization: Highlights districts with high susceptibility or incident rates (e.g., top 5 districts by deaths) to guide resource allocation.</p></li>
+<li><p>Localized Insights: Enables district-level analysis for targeted planning and response, benefiting community preparedness efforts.</p></li>
+<li><p>Academic Research: Unlike traditional landslide models in academic papers, this app provides an interactive platform for exploring risk dynamics through a comparison of Environmental Susceptibility and Random Forest methodologies, leveraging incidents data. By masking to populated areas, it focuses on human exposure, as official records often under-report incidents in uninhabited regions, ensuring more accurate risk assessment and model comparison for populated zones.</p></li>
+</ul>
+</section>
+<section id="limitations-and-potential-expansion" class="level4">
+<h4 class="anchored" data-anchor-id="limitations-and-potential-expansion"><strong>4. Limitations and Potential Expansion</strong></h4>
+<ul>
+<li><p><strong>Model Variables:</strong> The Environmental Susceptibility model uses six variables—slope, elevation, land cover, soil texture, clay content, and drainage density—with weights derived from literature. Future improvements could involve a more comprehensive literature review to identify additional influential factors and the integration of advanced modeling techniques.</p></li>
+<li><p><strong>Static Models:</strong> Current models are precomputed, limiting adaptability to changing environmental conditions. Adding dynamic updates with live data (e.g., rainfall, land use changes) could improve accuracy and responsiveness.</p></li>
+<li><p><strong>Granularity of Analysis:</strong> The app focuses on district-level analysis, but more granular insights (e.g., at the village or ward level) could improve localized planning</p></li>
+<li><p><strong>Report Export:</strong> The app lacks a feature to export analysis reports, which would be valuable for stakeholders to document and share findings.</p></li>
+</ul>
+</section>
+</section>
+<section id="demo" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="demo">Demo</h3>
 <p>The application runs on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.</p>
 <div class="column-page">
 <iframe src="https://ee-ajikumaraadarsh.projects.earthengine.app/view/nepallandslide" width="100%" height="800px">
 </iframe>
 </div>
-<section id="how-it-works" class="level3">
-<h3 class="anchored" data-anchor-id="how-it-works">How it Works</h3>
-<section id="data-preparation-and-selection" class="level4">
-<h4 class="anchored" data-anchor-id="data-preparation-and-selection">1. Data Preparation and Selection</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/1_Load and look at data.png" class="img-fluid figure-img"></p>
-<figcaption>Loading Data, 2025</figcaption>
-</figure>
-</div>
-<p>This model clips Hong et al.’s landslide susceptibility model to Nepal’s boundaries. Greater slope and elevation, as calculated from NASA SRTM Digital Elevation, are associated with higher susceptibility. Looser, coarser soil texture, from OpenLandMap Soil Texture Class, is associated with higher susceptibility. A soil type with more clay, from OpenLandMap Clay Content, is associated with higher susceptibility. Greater drainage density, from WWF HydroSHEDS flow accumulation, is associated with lower susceptibility. Each MODIS land cover type was assigned a susceptibility value by Hong et al.</p>
-</section>
-<section id="risk-factor-normalisation-and-weighting" class="level4">
-<h4 class="anchored" data-anchor-id="risk-factor-normalisation-and-weighting">2. Risk Factor Normalisation and Weighting</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/2_Making_The_Model.png" class="img-fluid figure-img"></p>
-<figcaption>Normalizing and Weighting Data, 2025</figcaption>
-</figure>
-</div>
-<p>Following the methodology from Hong et al.&nbsp;(2007), each input layer is normalised to a 0–1 range to ensure comparability across variables. The normalisation spans values specific to Nepal’s topography and environmental conditions. Slope is weighted at 0.3 as steep terrain has the strongest influence. Soil texture and soil type (clay percentage) are both weighted at 0.2. Drainage density, elevation, and land cover are each weighted at 0.1. These weights were developed by Hong et al.&nbsp;by testing which global weights best aligned with regional susceptibility maps.</p>
-</section>
-<section id="integrating-incident-points-from-bipad-portal" class="level4">
-<h4 class="anchored" data-anchor-id="integrating-incident-points-from-bipad-portal">3. Integrating Incident Points from Bipad Portal</h4>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/4_GeoJson Points.png" class="img-fluid figure-img"></p>
-<figcaption>Incident Points in GEE, 2025</figcaption>
-</figure>
-</div>
-<p>To validate the model, recent landslide incidents (6–13 April 2025) are scraped from Nepal’s Bipad Portal, which maintains a national disaster event database. Using spatial extraction tools and basic automation, the event point data is converted into a GeoJSON format. This is then uploaded into Google Earth Engine for visual comparison against the model output. These points represent ground-truth observations and are critical for assessing whether high-risk zones in the application align with actual landslide locations. This step bridges remote sensing with on-the-ground incident reporting and provides the foundation for further accuracy testing.</p>
-</section>
-<section id="visualising-risk-through-the-interface" class="level4">
-<h4 class="anchored" data-anchor-id="visualising-risk-through-the-interface">4. Visualising Risk Through the Interface</h4>
-<p>The application’s output is presented as a single raster layer showing normalised landslide risk. A simple and intuitive interface uses a traffic light colour scheme: green indicates low risk, yellow moderate, and red signifies high-risk areas. This gradient approach makes the output accessible to non-specialists, including government officers and local planners. Users can interactively pan, zoom, and inspect any region of Nepal in real-time via Google Earth Engine. Additional layers, such as slope or soil texture, can be toggled for in-depth analysis. This visual clarity supports both strategic planning and emergency response.</p>
-</section>
-<section id="validation-testing-and-potential-expansion" class="level4">
-<h4 class="anchored" data-anchor-id="validation-testing-and-potential-expansion">5. Validation, Testing and Potential Expansion</h4>
-<p>The application’s accuracy will be tested by comparing the predicted high-risk zones against actual landslide points from the Bipad dataset. We will calculate metrics like true positive rate and explore false negatives. If feasible, a Random Forest classifier may be trained using the incident data combined with randomly sampled no-landslide points, incorporating the same environmental variables. This would provide a machine learning-based susceptibility map for comparison with our weighted model. The end goal is to assess both models’ strengths and explore whether hybrid or ensemble techniques could offer improved precision for future applications.</p>
-</section>
 </section>
 <section id="key-features-beyond-the-demo" class="level3">
 <h3 class="anchored" data-anchor-id="key-features-beyond-the-demo">Key Features Beyond the Demo</h3>
@@ -385,11 +511,12 @@ Official bouundaries of Nepal’s 77 districts
 <button type="button" data-bs-target="#gallery-carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
 <button type="button" data-bs-target="#gallery-carousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
 <button type="button" data-bs-target="#gallery-carousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+<button type="button" data-bs-target="#gallery-carousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
 </div>
 <div class="carousel-inner" style="height: 700px; width: 100%;">
 <div class="carousel-item active" style="width: 100%; height: 100%; padding: 20px 70px; text-align: center; box-sizing: border-box;" data-bs-interval="5000">
 <p class="carousel-title" style="padding: 0; color: #7b7f5f; font-size: 1.3em; font-family: 'News Cycle', 'Arial Narrow Bold', sans-serif; font-weight: bold; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Multi-Language Support</p>
-<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Designed with the end user in mind, the app supports Nepal’s primary languages—Nepali (~44%), Maithili (~12%), and Bhojpuri (~6%)—ensuring accessibility for diverse users.</p>
+<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Designed with the end user in mind, the app supports Nepal’s primary languages—Nepali (~44%), Maithili (~12%), and Bhojpuri (~6%)—ensuring accessibility for diverse users, including those with low English fluency.</p>
 <div class="image-row" style="padding: 10px 0; width: 100%;  text-align: center; margin: 0 auto; box-sizing: border-box;">
 <a href="">
 <img src="images/App_multiLanguage.png" class="d-block" style="width: 100%;  max-height: 300px; height: auto; object-fit: contain; margin: 0 auto;">
@@ -419,7 +546,7 @@ var LANGUAGE_TRANSLATIONS = {
 </div>
 <div class="carousel-item" style="width: 100%; height: 100%; padding: 20px 70px; text-align: center; box-sizing: border-box;" data-bs-interval="5000">
 <p class="carousel-title" style="padding: 0; color: #7b7f5f; font-size: 1.3em; font-family: 'News Cycle', 'Arial Narrow Bold', sans-serif; font-weight: bold; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Efficient Caching</p>
-<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Leverages local memory for server-side calculations, the app avoids redundant computations, ensuring responsiveness even with large datasets.</p>
+<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">To avoid redundant computations, the app Leverages local memory for server-side calculations, ensuring responsiveness even with large datasets.</p>
 <div class="image-row" style="padding: 10px 0; width: 100%;  text-align: center; margin: 0 auto; box-sizing: border-box;">
 <a href="">
 <img src="images/App_cashing.png" class="d-block" style="width: 100%;  max-height: 300px; height: auto; object-fit: contain; margin: 0 auto;">
@@ -446,7 +573,7 @@ initializeAppAfterCaching();
 </div>
 <div class="carousel-item" style="width: 100%; height: 100%; padding: 20px 70px; text-align: center; box-sizing: border-box;" data-bs-interval="5000">
 <p class="carousel-title" style="padding: 0; color: #7b7f5f; font-size: 1.3em; font-family: 'News Cycle', 'Arial Narrow Bold', sans-serif; font-weight: bold; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Robust Error Handling</p>
-<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Handles clicks outside study areas and data issues with clear messages to keep users informed and engaged, preventing crashes and enhancing reliability.</p>
+<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">The app handles clicks outside study areas and data issues with clear messages to keep users informed and engaged, preventing crashes and enhancing reliability.</p>
 <div class="image-row" style="padding: 10px 0; width: 100%;  text-align: center; margin: 0 auto; box-sizing: border-box;">
 <a href="">
 <img src="images/App_outsideclick.png" class="d-block" style="width: 100%;  max-height: 300px; height: auto; object-fit: contain; margin: 0 auto;">
@@ -477,7 +604,7 @@ style: { margin: '10px auto', stretch: 'horizontal', textAlign: 'center' }
 </div>
 <div class="carousel-item" style="width: 100%; height: 100%; padding: 20px 70px; text-align: center; box-sizing: border-box;" data-bs-interval="5000">
 <p class="carousel-title" style="padding: 0; color: #7b7f5f; font-size: 1.3em; font-family: 'News Cycle', 'Arial Narrow Bold', sans-serif; font-weight: bold; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Optimal Rendering</p>
-<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Using high-resolution raster data, the app clips and renders relevant layers for the selected district only instead of the entire country, improving speed and user experience.</p>
+<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">The app enhances speed and user experience by clipping and rendering high-resolution raster data for the selected district only, rather than the entire country.</p>
 <div class="image-row" style="padding: 10px 0; width: 100%;  text-align: center; margin: 0 auto; box-sizing: border-box;">
 <a href="">
 <img src="images/App_clipping.png" class="d-block" style="width: 100%;  max-height: 300px; height: auto; object-fit: contain; margin: 0 auto;">
@@ -502,6 +629,36 @@ clearMapLayersExceptHighlight();
 var susceptibilityLayerclip = ui.Map.Layer(clippedSus, {min: 0, max: 1, palette: [STYLES.COLORS.LOW_RISK, STYLES.COLORS.MEDIUM_RISK, STYLES.COLORS.HIGH_RISK]});
 Map.layers().add(susceptibilityLayerclip);
 }</div>
+</div>
+</div>
+<div class="carousel-item" style="width: 100%; height: 100%; padding: 20px 70px; text-align: center; box-sizing: border-box;" data-bs-interval="5000">
+<p class="carousel-title" style="padding: 0; color: #7b7f5f; font-size: 1.3em; font-family: 'News Cycle', 'Arial Narrow Bold', sans-serif; font-weight: bold; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">Custom Basemaps and Streamlined Controls</p>
+<p class="fw-light" style="padding: 10px 0; color: #000; font-size: 0.7em; text-align: center; width: 100%;  margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">The app enhances the user experience by customizing the basemap to focus on essential geographic data, modifying road displays (e.g., highways, arterial, and local roads) to reduce visual clutter and removing unneeded base elements like saturation. Additionally, main map controls (e.g., zoom, map type, scale, fullscreen) are hidden to provide a distraction-free interface.</p>
+<div class="image-row" style="padding: 10px 0; width: 100%;  text-align: center; margin: 0 auto; box-sizing: border-box;">
+<a href="">
+<img src="images/App_basemap.png" class="d-block" style="width: 100%;  max-height: 300px; height: auto; object-fit: contain; margin: 0 auto;">
+</a>
+</div>
+<div class="code-row" style="padding: 10px 0; width: 100%;  text-align: center; margin: 0 auto; box-sizing: border-box;">
+<div class="code-snippet" style="font-family: 'Courier New', monospace; font-size: 0.8em; background-color: #f5f5f5; padding: 8px; border-radius: 3px; width: 90%; height: 200px; overflow-y: auto; white-space: pre-wrap; text-align: left; margin: 0 auto; word-wrap: break-word; box-sizing: border-box;">// Customize basemap to reduce visual clutter
+var roadNetwork = [
+{stylers: [{saturation: -100}]}, // Desaturate basemap for focus on data layers
+{featureType: 'road.highway', elementType: 'geometry.fill', stylers: [{color: '#000055'}, {weight: 0.1}]}, // Simplify highway display
+{featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{color: '#000000'}, {weight: 0.1}]},
+{featureType: 'road.arterial', elementType: 'geometry', stylers: [{color: '#FF0000'}, {weight: 0.1}]}, // Simplify arterial roads
+{featureType: 'road.local', elementType: 'geometry', stylers: [{color: '#00FF55'}, {weight: 0.1}]} // Simplify local roads
+];
+Map.setOptions('roadNetwork', { roadNetwork: roadNetwork });
+
+// Hide main map controls for a distraction-free interface
+Map.setControlVisibility({
+zoomControl: false, // Disable zoom control
+mapTypeControl: false, // Disable map type selector
+scaleControl: false, // Disable scale control
+fullscreenControl: false // Disable fullscreen control
+});
+Map.drawingTools().setShown(false); // Hide drawing tools
+</div>
 </div>
 </div>
 <div class="carousel-item" style="width: 100%; height: 100%; padding: 20px 70px; text-align: center; box-sizing: border-box;" data-bs-interval="5000">

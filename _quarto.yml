@@ -23,17 +23,18 @@ format:
     toc-depth: 3
     toc-title: Contents
     toc-location: right
+    code-fold: show
+    code-summary: "Show the code"
+    code-overflow: scroll
+    highlight-style: github
+    code-block-border-left: "#5a5d3c"
     
     theme:
       light: Journal
     #  dark: Solar
     grid: 
       body-width: 900px
-    
-
-    code-copy: true
-    code-overflow: wrap
-    highlight-style: monokai.theme
+   # highlight-style: monokai.theme
     #linkcolor: "#34a832"
     smooth-scroll: true
     link-external-newwindow: true

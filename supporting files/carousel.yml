@@ -1,5 +1,5 @@
 - title: "Multi-Language Support"
-  caption: "Designed with the end user in mind, the app supports Nepal’s primary languages—Nepali (~44%), Maithili (~12%), and Bhojpuri (~6%)—ensuring accessibility for diverse users."
+  caption: "Designed with the end user in mind, the app supports Nepal’s primary languages—Nepali (~44%), Maithili (~12%), and Bhojpuri (~6%)—ensuring accessibility for diverse users, including those with low English fluency."
   image: "images/App_multiLanguage.png"
   code: "\
   // Language selection dropdown\n\
@@ -24,7 +24,7 @@
   "
   link: ""
 - title: "Efficient Caching"
-  caption: "Leverages local memory for server-side calculations, the app avoids redundant computations, ensuring responsiveness even with large datasets."
+  caption: "To avoid redundant computations, the app Leverages local memory for server-side calculations, ensuring responsiveness even with large datasets."
   image: "images/App_cashing.png"
   code: "\
   // Cache national statistics at startup\n\
@@ -45,7 +45,7 @@
   );"
   link: ""
 - title: "Robust Error Handling"
-  caption: "Handles clicks outside study areas and data issues with clear messages to keep users informed and engaged, preventing crashes and enhancing reliability."
+  caption: "The app handles clicks outside study areas and data issues with clear messages to keep users informed and engaged, preventing crashes and enhancing reliability."
   image: "images/App_outsideclick.png"
   code: "\
   // Handle clicks outside Nepal\n\
@@ -71,7 +71,7 @@
   });"
   link: ""
 - title: "Optimal Rendering"
-  caption: "Using high-resolution raster data, the app clips and renders relevant layers for the selected district only instead of the entire country, improving speed and user experience."
+  caption: "The app enhances speed and user experience by clipping and rendering high-resolution raster data for the selected district only, rather than the entire country."
   image: "images/App_clipping.png"
   code: "\
   // Highlight and clip layers for the selected district\n\
@@ -92,6 +92,30 @@
     var susceptibilityLayerclip = ui.Map.Layer(clippedSus, {min: 0, max: 1, palette: [STYLES.COLORS.LOW_RISK, STYLES.COLORS.MEDIUM_RISK, STYLES.COLORS.HIGH_RISK]});\n\
     Map.layers().add(susceptibilityLayerclip);\n\
   }"
+  link: ""
+- title: "Custom Basemaps and Streamlined Controls"
+  caption: "The app enhances the user experience by customizing the basemap to focus on essential geographic data, modifying road displays (e.g., highways, arterial, and local roads) to reduce visual clutter and removing unneeded base elements like saturation. Additionally, main map controls (e.g., zoom, map type, scale, fullscreen) are hidden to provide a distraction-free interface."
+  image: "images/App_basemap.png"
+  code: "\
+  // Customize basemap to reduce visual clutter\n\
+  var roadNetwork = [\n\
+    {stylers: [{saturation: -100}]}, // Desaturate basemap for focus on data layers\n\
+    {featureType: 'road.highway', elementType: 'geometry.fill', stylers: [{color: '#000055'}, {weight: 0.1}]}, // Simplify highway display\n\
+    {featureType: 'road.highway', elementType: 'geometry.stroke', stylers: [{color: '#000000'}, {weight: 0.1}]},\n\
+    {featureType: 'road.arterial', elementType: 'geometry', stylers: [{color: '#FF0000'}, {weight: 0.1}]}, // Simplify arterial roads\n\
+    {featureType: 'road.local', elementType: 'geometry', stylers: [{color: '#00FF55'}, {weight: 0.1}]} // Simplify local roads\n\
+  ];\n\
+  Map.setOptions('roadNetwork', { roadNetwork: roadNetwork });\n\
+  \n\
+  // Hide main map controls for a distraction-free interface\n\
+  Map.setControlVisibility({\n\
+    zoomControl: false, // Disable zoom control\n\
+    mapTypeControl: false, // Disable map type selector\n\
+    scaleControl: false, // Disable scale control\n\
+    fullscreenControl: false // Disable fullscreen control\n\
+  });\n\
+  Map.drawingTools().setShown(false); // Hide drawing tools\n\
+"
   link: ""
 - title: "Summary Popups"
   caption: "Clicking a landslide point in district view displays a popup with aggregated details, aiding understanding of past events at specific locations."
