@@ -1,11 +1,5 @@
-Use this repository to host a website for your CASA0025 final project by following these stpes: 
+Nepal Landslides Risk Assessment Tool - CASA0025 Assignment
 
-1. clone this repository 
-2. install [quarto](https://quarto.org/docs/download/) 
-3. edit the 'index.qmd' file with the contents of your project
-4. using terminal, navigate to the project directory and run "quarto render" 
-5. push the changes to your github repository 
-6. on github, navigate to Settings>Pages>Build and Deployment. Make sure that under "Source" it says "deploy from branch". Under "Branch", select "Main" in the first dropdown and "Docs" under the second drop down. Then press "Save" 
+This repository contains the Nepal Landslides Risk Assessment Tool, developed as part of the CASA's Building Spatial Applications with Big Data course assignment. The tool is a web-based application built using Google Earth Engine to assess landslide susceptibility and risk across Nepal, focusing on accessibility, performance, and user interaction. It provides national and district-level insights into landslide risks, historical incidents, and population exposure, supporting disaster preparedness and planning.
 
-Your website should now be available under 
-https://{your_username}.github.io/{your_repo_name}
+Team: Rasternauts
