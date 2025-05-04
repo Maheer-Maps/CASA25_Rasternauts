@@ -5,8 +5,8 @@ css: style_gen.css
 ---
 
 ## Project Summary
+The project develops an application using Google Earth Engine for policymakers to assess landslide susceptibility in Nepal. The model identifies high-hazard zones using terrain, hydrology, soil, and land cover data, following Hong et al. (2007). Additionally, a machine learning model is tested for accuracy using recent landslide points from the [Bipad Portal](https://bipadportal.gov.np/incidents/)  (6–13 April 2025). This dual approach allows comparisons between knowledge-based and data-driven methods. The web platform improves hazard communication and supports sustainable landslide inventory mapping, addressing gaps in data-sharing and stakeholder collaboration highlighted by Meena et al. (2021), crucial for Nepal’s disaster management framework.
 
-The project aims to develop an application using Google Earth Engine that policymakers can use to assess the landslide susceptibility in Nepal. The model identifies high hazard zones by using parameters like terrain, hydrology, soil, and land cover data. The model follows methodologies from “Use of satellite remote sensing data in the mapping of global landslide susceptibility” by Hong et al (2007). The machine learning model is also tested to validate its accuracy and practicality using the recent landslide points data from the [Bipad Portal](https://bipadportal.gov.np/incidents/) (Dates: 6-13 April, 2025).
 
 [![Global Modelling by Hong et al., 2007](images/hongetal.png)](https://link.springer.com/article/10.1007/s11069-006-9104-z)
 
@@ -14,11 +14,11 @@ The project aims to develop an application using Google Earth Engine that policy
 
 ### Problem Statement
 
-Almost 80% of the total area of Nepal is prone to landslides (Department of Water Induced Disaster Prevention, 2015), so easily accessible research into which areas are most susceptible is motivated. Updating research to find which factors make areas most vulnerable to damaging landslides in Nepal provides information on the locations of vulnerable populations and critical infrastructure. This research must be easily interpretable for academics and, crucially, local administrators. Our application aims to bridge this disconnect by providing an accessible, Nepali-language platform for policymakers, planners, and stakeholders to visualize high susceptibility zones, and make informed decisions for mitigation and resilience.
+Almost 80% of Nepal is prone to landslides (Department of Water Induced Disaster Prevention, 2015), creating an urgent need for accessible research on susceptibility. Updating research to identify key factors provides critical insights into vulnerable populations and infrastructure. Yet, outputs often remain disconnected from local needs. Our application addresses this gap by offering an intuitive, Nepali-language platform for policymakers, planners, and stakeholders to visualise high-susceptibility zones. By bridging academic research and local administration, it supports evidence-based mitigation and sustainable landslide inventory mapping (Meena et al., 2021), helping overcome long-standing issues in disaster data sharing, cooperation, and resilience planning.
 
 ### End User
 
-Our platform is designed for hybrid users across academia and specific administrative bodies involved in landslide management in Nepal. These users require scientifically robust yet accessible tools to develop policies. In the past, the gap between academic knowledge and local awareness limited the practical benefits of research—as seen during the 2015 earthquake and 2021 Melamchi floods. By delivering these models through a Nepali default website rather than papers, we aim to improve accessibility, utility, and real-world impact for those affected by landslides and responsible for crisis response.
+Our platform is designed for hybrid users across academia and administrative bodies involved in landslide management in Nepal. These users need scientifically robust yet accessible tools to inform policies and interventions. Historically, gaps between research and local awareness limited practical outcomes (Meena et al., 2021). By delivering models through a Nepali-language website rather than academic papers, we improve accessibility, usability, and real-world impact. The platform also promotes stakeholder collaboration, strengthening Nepal’s capacity for disaster preparedness, response, and long-term landslide risk reduction (Chalise et al., 2022).
 
 ## Data
 <table>
@@ -89,7 +89,7 @@ Our platform is designed for hybrid users across academia and specific administr
 To recreate Hong et al.'s susceptibility model in GEE, we imported six environmental variables into a weighted linear combination. Each variable was normalized on a 0-1 scale, and in combination with the weights provided a susceptibility score for each pixel. Susceptibility was then normalized 0-1 for the whole of Nepal.
 
 ![Susceptibility Model Methodology](images/Flowchart1.png)
-<!--
+
 #### Susceptibility Model Code
 ::: {.scroll-container style="overflow-y: scroll; height: 400px; padding:20px "}
 ``` javascript
@@ -266,14 +266,14 @@ Map.addLayer(normalizedLandslideRisk.select(0), {
 }, "Normalized Landslide Risk");
 ```
 :::
--->
+
 
 ### Random Forest Model
 
 To find populated areas most susceptible to landslides, we masked our environmental variables to populated areas, and trained a random forest classifier on landslide and randomly generated non-landslide points from Bipad Portal. Each pixel was scored based on the proportion of decision trees voting landslide.
 
 ![Random Forest Model Methodology](images/Flowchart2.png)
-<!--
+
 #### Random Forest Model Code
 ::: {.scroll-container style="overflow-y: scroll; height: 400px; padding:20px "}
 ``` javascript
@@ -963,11 +963,13 @@ var chartPop = ui.Chart.feature.byFeature(importanceFC, 'variable', 'importance'
 ```
 ::: 
 
--->
+
 
 ## Interface
 
-The website provides an intuitive, multilingual interface combining expertise and data into robust models, offering comparative visualizations and statistical summaries. The platform prioritizes clarity through map-based dashboards and toggleable language options to enhance accessibility and local impact.
+The website provides an intuitive, multilingual interface combining expertise and data into robust models, offering comparative visualizations and statistical summaries. The platform prioritizes clarity through map-based dashboards and toggleable language options to enhance accessibility and local impact. 
+
+As discussed in detail in Section ‘How It Works, 2. Interactive Visualization and Analysis’.
 
 
 
@@ -988,13 +990,35 @@ The website provides an intuitive, multilingual interface combining expertise an
 
 ## The Application
 
-### How it Works
+### Demo
 
-#### 1. Data Preparation and Precomputations
+The application runs on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.
+
+::: column-page
+<iframe src="https://ee-ajikumaraadarsh.projects.earthengine.app/view/nepallandslide" width="100%" height="800px">
+
+</iframe>
+:::
+
+### Key Features Beyond the Demo
+
+While our demo showcases the app's core functionality, several critical features work behind the scenes to enhance its performance and reliability. In this section, we highlight key capabilities implemented to optimize efficiency and ensure a seamless user experience.
+
+```{r, echo = FALSE, message = FALSE, warning = FALSE}
+#| classes: '.g-col-lg-6 .g-col-12 .g-col-md-12'
+#| class.output: none
+source("supporting files/carousel.R")
+carousel("gallery-carousel", 5000, 
+         yaml.load_file("supporting files/carousel.yml"))
+```
+
+## How it Works
+
+### 1. Data Preparation and Precomputations
 
 To handle complex computations, separate scripts were developed for the two methodologies explained above. Results are imported into the app as precomputed layers.
 
-**Imported Precomputed Layers:**
+#### Imported Precomputed Layers:
 
 -   Environmental Landslide Susceptibility: Maps susceptibility using environmental variables.
 
@@ -1002,7 +1026,7 @@ To handle complex computations, separate scripts were developed for the two meth
 
 -   Random Forest Landslide Probability: ML-based risk focused on populated areas.
 
-**District-Level Aggregation:**
+#### District-Level Aggregation:
 
 A dedicated script was built to aggregate historical reported landslide data with impact metrics (e.g., incidents, deaths, injuries, destroyed infrastructure), alongside population and susceptibility metrics per district. It also includes engineered metrics such as incidents per km² and nearest districts (determined via spatial proximity of centroids) for comparative analysis.
 
@@ -1028,13 +1052,13 @@ A dedicated script was built to aggregate historical reported landslide data wit
   var neighbor2 = nearbyDistricts.toList(2).get(1);
 ```
 
-#### 2. Interactive Visualization and Analysis
+### 2. Interactive Visualization and Analysis
 
 #### National Overview
 
 At startup, national-level statistics are displayed, highlighting aggregated data. A pie chart shows population risk distribution across susceptibility zones (Low, Medium, High), and a bar chart lists the top 5 districts by impact metric, allowing users to switch metrics and zoom into a district by clicking a bar.
 
-##### **susceptibility zones**
+#### Susceptibility Zones
 
 Susceptibility zones are defined as Low (\<0.3), Medium (0.3–0.5), and High (\>0.5), identified by analyzing the distribution of susceptibility values from the built Susceptibility model.
 
@@ -1065,11 +1089,11 @@ var thresholdZones = LandslideSusceptibility
   .clip(NepalBoundary);
 ```
 
-#### District-Level Analysis:
+#### District-Level Analysis
 
 This view provides detailed district analysis, showing key metrics like average susceptibility, population, and incidents per km², alongside comparisons with national averages and the two nearest districts. Historical landslides are visualized on the map, with popups displaying aggregated details within a 300m radius of a clicked point.
 
-#### Methodology overview:
+#### Methodology Overview
 
 This view allows users to compare the two methodologies (Environmental Susceptibility and RF) using a split panel. It displays the RF probability map and normalized risk map for populated areas, with a draggable divider for spatial comparison, focusing on population exposure.
 
@@ -1095,51 +1119,32 @@ var splitPanel = ui.SplitPanel({
  wipe: true
 });
 ```
-
-#### 3. insights and objectives
+### 3. Insights and Objectives
 
 The app provides actionable insights for disaster preparedness in Nepal by identifying high-risk districts and population exposure. It supports:
 
--   Risk Prioritization: Highlights districts with high susceptibility or incident rates (e.g., top 5 districts by deaths) to guide resource allocation.
+ - **Risk Prioritization:** Highlights districts with high susceptibility or incident rates (e.g., top 5 districts by deaths) to guide resource allocation.
+ 
+- **Localized Insights:** Enables district-level analysis for targeted planning and response, benefiting community preparedness efforts.
 
--   Localized Insights: Enables district-level analysis for targeted planning and response, benefiting community preparedness efforts.
+- **Academic Research:** Unlike traditional landslide models in academic papers, this app provides an interactive platform for exploring risk dynamics through a comparison of Environmental Susceptibility and Random Forest methodologies, leveraging incidents data. By masking to populated areas, it focuses on human exposure, as official records often under-report incidents in uninhabited regions, ensuring more accurate risk assessment and model comparison for populated zones.
 
--   Academic Research: Unlike traditional landslide models in academic papers, this app provides an interactive platform for exploring risk dynamics through a comparison of Environmental Susceptibility and Random Forest methodologies, leveraging incidents data. By masking to populated areas, it focuses on human exposure, as official records often under-report incidents in uninhabited regions, ensuring more accurate risk assessment and model comparison for populated zones.
+### 4. Limitations and Potential Expansion
+- **Static Models:** Current models are precomputed, limiting adaptability to changing environmental conditions. Adding dynamic updates with live data (e.g., rainfall, land use changes) could improve accuracy and responsiveness.
 
-#### **4. Limitations and Potential Expansion**
+- **Granularity of Analysis:** The app focuses on district-level analysis, but more granular insights (e.g., at the village or ward level) could improve localized planning.
 
--   **Model Variables:** The Environmental Susceptibility model uses six variables—slope, elevation, land cover, soil texture, clay content, and drainage density—with weights derived from literature. Future improvements could involve a more comprehensive literature review to identify additional influential factors and the integration of advanced modeling techniques.
+- **Report Export:** The app lacks a feature to export analysis reports, which would be valuable for stakeholders to document and share findings.
 
--   **Static Models:** Current models are precomputed, limiting adaptability to changing environmental conditions. Adding dynamic updates with live data (e.g., rainfall, land use changes) could improve accuracy and responsiveness.
-
--   **Granularity of Analysis:** The app focuses on district-level analysis, but more granular insights (e.g., at the village or ward level) could improve localized planning
-
--   **Report Export:** The app lacks a feature to export analysis reports, which would be valuable for stakeholders to document and share findings.
-
-### Demo
-
-The application runs on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.
-
-::: column-page
-<iframe src="https://ee-ajikumaraadarsh.projects.earthengine.app/view/nepallandslide" width="100%" height="800px">
-
-</iframe>
-:::
-
-### Key Features Beyond the Demo
-
-While our demo showcases the app's core functionality, several critical features work behind the scenes to enhance its performance and reliability. In this section, we highlight key capabilities implemented to optimize efficiency and ensure a seamless user experience.
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
-#| classes: '.g-col-lg-6 .g-col-12 .g-col-md-12'
-#| class.output: none
-source("supporting files/carousel.R")
-carousel("gallery-carousel", 5000, 
-         yaml.load_file("supporting files/carousel.yml"))
-```
 
 # References
 
-1.  Hong, Y., Adler, R. & Huffman, G., 2007. Use of satellite remote sensing data in the mapping of global landslide susceptibility. Natural Hazards, 43(2), pp.245–256. Available at: https://doi.org/10.1007/s11069-006-9104-z
+- Chalise, A., Sinjali, B., Kandel, T., Parajuli, J., & Shrestha, S. (2022). Landslide Susceptibility Mapping Using Machine Learning Approach: A Case Study of Baglung District, Nepal. Nepalese Journal of Geoinformatics, 31–41. https://doi.org/10.3126/njg.v21i1.50880
 
-2.  Nepal in data, n.d. Major Languages Spoken As Mother Tongue in Nepal. Available at: https://nepalindata.com/insight/major-languages-spoken-as-mother-tongue-in-nepal/
+- Chen, L., Ge, X., Yang, L., Li, W. and Peng, L. (2023) An Improved Multi-Source Data-Driven Landslide Prediction Method Based on Spatio-Temporal Knowledge Graph, Remote sensing, 15(8), p. 2126, [online] Available at: https://www.mdpi.com/2072-4292/15/8/2126/pdf?version=1681786952.
+
+- Meena, S.R., Albrecht, F., Hölbling, D., Ghorbanzadeh, O. and Blaschke, T. (2021). Nepalese landslide information system (NELIS): a conceptual framework for a web-based geographical information system for enhanced landslide risk management in Nepal. Natural Hazards and Earth System Sciences, [online] 21(1), pp.301–316. doi:https://doi.org/10.5194/nhess-21-301-2021.
+
+- Nepal in data, n.d. Major Languages Spoken As Mother Tongue in Nepal. Available at: https://nepalindata.com/insight/major-languages-spoken-as-mother-tongue-in-nepal/
+
+- Hong, Y., Adler, R. & Huffman, G., 2007. Use of satellite remote sensing data in the mapping of global landslide susceptibility. Natural Hazards, 43(2), pp.245–256. Available at: https://doi.org/10.1007/s11069-006-9104-z
