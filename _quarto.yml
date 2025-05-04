@@ -12,8 +12,9 @@ website:
     foreground: "#715109"
     left: "<div style='text-align: left'>CASA0025 Group Project </div>"
     right: 
+      - "<span style='margin-right: 5px;'>For all precomputation scripts and main app code, please visit:</span>"
       - icon: github
-        href: https://github.com/Maheer-Maps/CASA25_Rasternauts
+        href: https://github.com/Maheer-Maps/CASA25_Rasternauts/tree/main/GEE-scripts
         target: "_blank" 
 
 
@@ -31,10 +32,7 @@ format:
     
     theme:
       light: Journal
-    #  dark: Solar
     grid: 
       body-width: 900px
-   # highlight-style: monokai.theme
-    #linkcolor: "#34a832"
     smooth-scroll: true
     link-external-newwindow: true

@@ -1,117 +1,32 @@
----
-title-block-banner: images/nepal.png
-title: "Nepal Landslides Risk Application"
-css: supporting-files/style_gen.css
----
+// Model Verification and Random Forest Modelling (Dan)
 
-## Project Summary
-The project develops an application using Google Earth Engine for policymakers to assess landslide susceptibility in Nepal. The model identifies high-hazard zones using terrain, hydrology, soil, and land cover data, following Hong et al. (2007). Additionally, a machine learning model is tested for accuracy using recent landslide points from the [Bipad Portal](https://bipadportal.gov.np/incidents/)  (6–13 April 2025). This dual approach allows comparisons between knowledge-based and data-driven methods. The web platform improves hazard communication and supports sustainable landslide inventory mapping, addressing gaps in data-sharing and stakeholder collaboration highlighted by Meena et al. (2021), crucial for Nepal’s disaster management framework.
+// Import shapefile for Nepal country boundary
+NepalBoundary = ee.FeatureCollection("projects/ee-testing-casa-25/assets/Nepal_boundary");
 
-
-[![Global Modelling by Hong et al., 2007](images/hongetal.png)](https://link.springer.com/article/10.1007/s11069-006-9104-z)
-
-------------------------------------------------------------------------
-
-### Problem Statement
-
-Almost 80% of Nepal is prone to landslides (Department of Water Induced Disaster Prevention, 2015), creating an urgent need for accessible research on susceptibility. Updating research to identify key factors provides critical insights into vulnerable populations and infrastructure. Yet, outputs often remain disconnected from local needs. Our application addresses this gap by offering an intuitive, Nepali-language platform for policymakers, planners, and stakeholders to visualise high-susceptibility zones. By bridging academic research and local administration, it supports evidence-based mitigation and sustainable landslide inventory mapping (Meena et al., 2021), helping overcome long-standing issues in disaster data sharing, cooperation, and resilience planning.
-
-### End User
-
-Our platform is designed for hybrid users across academia and administrative bodies involved in landslide management in Nepal. These users need scientifically robust yet accessible tools to inform policies and interventions. Historically, gaps between research and local awareness limited practical outcomes (Meena et al., 2021). By delivering models through a Nepali-language website rather than academic papers, we improve accessibility, usability, and real-world impact. The platform also promotes stakeholder collaboration, strengthening Nepal’s capacity for disaster preparedness, response, and long-term landslide risk reduction (Chalise et al., 2022).
-
-## Data
-<table>
-  <tr>
-    <th>Category</th>
-    <th>Dataset</th>
-    <th>Description</th>
-    <th>Source</th>
-  </tr>
-  <tr>
-    <td rowspan="6">GEE</td>
-    <td>Elevation/Slope</td>
-    <td class="description">NASA SRTM Digital Elevation 30m</td>
-    <td><a href="https://developers.google.com/earth-engine/datasets/catalog/USGS_SRTMGL1_003">Link</a></td>
-  </tr>
-  <tr>
-    <td>Land Cover</td>
-    <td class="description">MODIS Land Cover Type (2020)</td>
-    <td><a href="https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MCD12Q1">Link</a></td>
-  </tr>
-  <tr>
-    <td>Hydrology</td>
-    <td class="description">WWF HydroSHEDS flow accumulation</td>
-    <td><a href="https://developers.google.com/earth-engine/datasets/catalog/WWF_HydroSHEDS_15ACC">Link</a></td>
-  </tr>
-  <tr>
-    <td>Soil Texture</td>
-    <td class="description">OpenLandMap Soil Texture Class (USDA System)</td>
-    <td><a href="https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_TEXTURE-CLASS_USDA-TT_M_v02">Link</a></td>
-  </tr>
-  <tr>
-    <td>Soil Type</td>
-    <td class="description">OpenLandMap Clay Content</td>
-    <td><a href="https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_CLAY-WFRACTION_USDA-3A1A1A_M_v02">Link</a></td>
-  </tr>
-  <tr>
-    <td>Population Density</td>
-    <td class="description">Global Human Settlement Layer of spatial distribution of residential population </td>
- <td><a href="https://developers.google.com/earth-engine/datasets/catalog/JRC_GHSL_P2023A_GHS_POP">Link</a></td>
- </tr>
-  <tr>
-    <td rowspan="4">Other</td>
-    <td >Historical Landslides</td>
-    <td class="description">Official reported landslide incident points (2011 - April 2025)</td>
- <td><a href="https://bipadportal.gov.np/incidents/">Link</a></td>
-  </tr>
-  <tr>
-    <td>Census Population</td>
-    <td class="description">Official Population per District  2021 Census  </td>
- <td><a href="https://censusnepal.cbs.gov.np/results/population#population_size_and_distribution">Link</a></td>
-  </tr>
-  <tr>
-    <td>Country Boundary</td>
-    <td class="description">Official boundary layer for Nepal </td>
- <td><a href="https://nationalgeoportal.gov.np/#/metadata/96">Link</a></td>
-  </tr>
-  <tr>
-    <td>Districts Boundaries</td>
-    <td class="description"> Official bouundaries of Nepal's 77 districts</td>
- <td><a href="https://nationalgeoportal.gov.np/#/metadata/95p">Link</a></td>
-  </tr>
-</table>
-
-## Methodology
-
-### Susceptibility Model
-
-To recreate Hong et al.'s susceptibility model in GEE, we imported six environmental variables into a weighted linear combination. Each variable was normalized on a 0-1 scale, and in combination with the weights provided a susceptibility score for each pixel. Susceptibility was then normalized 0-1 for the whole of Nepal.
-
-![Susceptibility Model Methodology](images/Flowchart1.png)
-
-#### Susceptibility Model Code
-::: {.scroll-container style="overflow-y: scroll; height: 400px; padding:20px "}
-``` javascript
- // Import shapefile for country boundaries
-var filteredCountries = ee.FeatureCollection("projects/ee-testing-casa-25/assets/Nepal_boundary");
-Map.centerObject(filteredCountries, 7);
+var landslidePoints = ee.FeatureCollection("users/jihunnadi65/landslides_data_v1"),
+    NepalBoundary = ee.FeatureCollection("projects/ee-testing-casa-25/assets/Nepal_boundary");
+    
+// Display Nepal boundary
+Map.centerObject(NepalBoundary, 7);
+Map.addLayer(NepalBoundary, {}, 'Selected Countries');
+Map.setOptions("Hybrid");
 
 // DEM
 var dem = ee.Image('USGS/SRTMGL1_003');
-var clippedDem = dem.clip(filteredCountries);
+var clippedDem = dem.clip(NepalBoundary);
 
 // Variable 1: SLOPE
 var slope = ee.Terrain.slope(clippedDem);
 var minMaxSlope = slope.reduceRegion({
   reducer: ee.Reducer.minMax(),
-  geometry: filteredCountries.geometry(),
+  geometry: NepalBoundary.geometry(),
   scale: 250,
   bestEffort: true
 });
 var minSlope = ee.Number(minMaxSlope.get('slope_min'));
 var maxSlope = ee.Number(minMaxSlope.get('slope_max'));
-
+print("Min Slope:", minSlope);
+print("Max Slope:", maxSlope);
 var normSlope = slope.subtract(minSlope).divide(maxSlope.subtract(minSlope));
 Map.addLayer(normSlope, {min: 0, max: 1, palette: ['white', 'blue', 'green', 'yellow', 'red']}, 'Nomalised Slope', false);
 
@@ -119,13 +34,14 @@ Map.addLayer(normSlope, {min: 0, max: 1, palette: ['white', 'blue', 'green', 'ye
 var elev = clippedDem;
 var minMaxElevation = elev.reduceRegion({
   reducer: ee.Reducer.minMax(),
-  geometry: filteredCountries.geometry(),
+  geometry: NepalBoundary.geometry(),
   scale: 250,
   bestEffort: true
 });
 var minElev = ee.Number(minMaxElevation.get('elevation_min'));
 var maxElev = ee.Number(minMaxElevation.get('elevation_max'));
-
+print("Min Elevation (m):", minElev);
+print("Max Elevation (m):", maxElev);
 var normElev = elev.subtract(minElev).divide(maxElev.subtract(minElev));
 Map.addLayer(normElev, {min: 0, max: 1, palette: ['white', 'blue', 'green', 'yellow', 'red']}, 'Nomalised Elevation', false);
 
@@ -134,26 +50,28 @@ var landcover = ee.ImageCollection("MODIS/061/MCD12Q1")
   .select("LC_Type1")
   .filterDate("2023-01-01", "2023-12-31")
   .first()
-  .clip(filteredCountries);
+  .clip(NepalBoundary);
 
 var reclassifiedLand = landcover.remap(
   [0, 15, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 14, 16, 13, 17],
   [0, 0, 0.1, 0.1, 0.1, 0.2, 0.2, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0]
 );
 
+// Print out min/max values for validation
 var minMaxLand = reclassifiedLand.reduceRegion({
   reducer: ee.Reducer.minMax(),
-  geometry: filteredCountries.geometry(),
+  geometry: NepalBoundary.geometry(),
   scale: 250,
   bestEffort: true
 });
 var minLand = ee.Number(minMaxLand.get('remapped_min'));
 var maxLand = ee.Number(minMaxLand.get('remapped_max'));
-
+print("Min Land cover:", minLand);
+print("Max Land cover:", maxLand);
 Map.addLayer(reclassifiedLand, {min: 0, max: 1, palette: ['blue', 'green', 'yellow', 'red']}, "Reclassified Land Cover", false);
 
 // Variable 4a: Drainage Density
-var flowAccum = ee.Image("WWF/HydroSHEDS/15ACC").clip(filteredCountries);
+var flowAccum = ee.Image("WWF/HydroSHEDS/15ACC").clip(NepalBoundary);
 var kernel = ee.Kernel.circle(5000, 'meters');
 var threshold = 50;
 var streamMask = flowAccum.gt(threshold);
@@ -163,65 +81,67 @@ var drainageDensity = streamMask.reduceNeighborhood({
 });
 var minMaxDensity = drainageDensity.reduceRegion({
   reducer: ee.Reducer.minMax(),
-  geometry: filteredCountries.geometry(),
+  geometry: NepalBoundary.geometry(),
   scale: 250,
   bestEffort: true
 });
 var minDensity = ee.Number(minMaxDensity.get('b1_mean_min'));
 var maxDensity = ee.Number(minMaxDensity.get('b1_mean_max'));
-
+print("Min Density:", minDensity);
+print("Max Density:", maxDensity);
 var normalizedDrainageDensity = drainageDensity.subtract(minDensity).divide(maxDensity.subtract(minDensity));
 Map.addLayer(normalizedDrainageDensity, {min: 0, max: 1, palette: ['white', 'green', 'blue']}, 'Normalised Drainage Density', false);
 
 // Variable 4b: Distance to Drainage
 var streams = flowAccum.gt(threshold).selfMask();
-var distanceToDrainage = streams.fastDistanceTransform().sqrt().clip(filteredCountries);
+var distanceToDrainage = streams.fastDistanceTransform().sqrt().clip(NepalBoundary);
 var minMax = distanceToDrainage.reduceRegion({
   reducer: ee.Reducer.minMax(),
-  geometry: filteredCountries.geometry(),
+  geometry: NepalBoundary.geometry(),
   scale: 250,
   bestEffort: true
 });
 var minDist = ee.Number(minMax.get('distance_min'));
 var maxDist = ee.Number(minMax.get('distance_max'));
-
+print("Min Distance:", minDist);
+print("Max Distance:", maxDist);
 var normalizedDistance = distanceToDrainage.subtract(minDist).divide(maxDist.subtract(minDist));
 normalizedDistance = ee.Image(1).subtract(normalizedDistance);
 Map.addLayer(normalizedDistance, {min: 0, max: 1, palette: ["blue", "yellow", "red"]}, "Normalized Distance to Drainage", false);
 
-// Variable 5: Soil Texture (Original)
-var soilTexture = ee.Image("OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02").select("b0").clip(filteredCountries);
+// Variable 5: Soil Texture - Dan edit
+var soilTexture = ee.Image("OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02").select("b0").clip(NepalBoundary);
 var reclassifiedSoil = soilTexture.remap(
- [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
- [3, 3, 3, 3, 2, 2, 2, 2, 1, 2, 1, 1]
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  [3, 3, 3, 3, 2, 2, 2, 2, 1, 2, 1, 1]
 );
-reclassifiedSoil = ee.Image(4).subtract(reclassifiedSoil);
+// reclassifiedSoil = ee.Image(4).subtract(reclassifiedSoil); // No need for inversion as higher number already means higher risk
 var minMaxSoilTexture = reclassifiedSoil.reduceRegion({
- reducer: ee.Reducer.minMax(),
- geometry: filteredCountries.geometry(),
- scale: 250,
- bestEffort: true
+  reducer: ee.Reducer.minMax(),
+  geometry: NepalBoundary.geometry(),
+  scale: 250,
+  bestEffort: true
 });
-
-var minSoil = ee.Number(minMaxSoilTexture.get('constant_min'));
-var maxSoil = ee.Number(minMaxSoilTexture.get('constant_max'));
-
+var minSoil = ee.Number(minMaxSoilTexture.get('remapped_min'));
+var maxSoil = ee.Number(minMaxSoilTexture.get('remapped_max'));
+print("Min Soil:", minSoil);
+print("Max Soil:", maxSoil);
 var normalizedSoilTexture = reclassifiedSoil.subtract(minSoil).divide(maxSoil.subtract(minSoil));
 Map.addLayer(normalizedSoilTexture, {min: 0, max: 1, palette: ["yellow", "green", "red"]}, "Normalised Soil Texture", false);
 
 // Variable 6: Soil Type (Clay %)
-var soilType = ee.Image("OpenLandMap/SOL/SOL_CLAY-WFRACTION_USDA-3A1A1A_M/v02").clip(filteredCountries);
+var soilType = ee.Image("OpenLandMap/SOL/SOL_CLAY-WFRACTION_USDA-3A1A1A_M/v02").clip(NepalBoundary);
 soilType = soilType.reduce(ee.Reducer.mean());
 var minMaxClay = soilType.reduceRegion({
   reducer: ee.Reducer.minMax(),
-  geometry: filteredCountries.geometry(),
+  geometry: NepalBoundary.geometry(),
   scale: 250,
   bestEffort: true
 });
-
 var minClay = ee.Number(minMaxClay.get('mean_min'));
 var maxClay = ee.Number(minMaxClay.get('mean_max'));
-
+print("Min Clay %:", minClay);
+print("Max Clay %:", maxClay);
 var normClay = soilType.subtract(minClay).divide(maxClay.subtract(minClay));
 Map.addLayer(normClay.select(0), {min: 0, max: 1, palette: ["blue", "yellow", "red"]}, "Normalized Clay Percentage", false);
 
@@ -236,6 +156,15 @@ normClay = normClay.reproject({crs: crs, scale: targetScale});
 reclassifiedLand = reclassifiedLand.reproject({crs: crs, scale: targetScale});
 normalizedSoilTexture = normalizedSoilTexture.reproject({crs: crs, scale: targetScale});
 
+// Verify ranges
+print(normSlope.reduceRegion({reducer: ee.Reducer.minMax(), geometry: NepalBoundary.geometry(), scale: 250, bestEffort: true}));
+print(normalizedDrainageDensity.reduceRegion({reducer: ee.Reducer.minMax(), geometry: NepalBoundary.geometry(), scale: 250, bestEffort: true}));
+print(normalizedDistance.reduceRegion({reducer: ee.Reducer.minMax(), geometry: NepalBoundary.geometry(), scale: 250, bestEffort: true}));
+print(normElev.reduceRegion({reducer: ee.Reducer.minMax(), geometry: NepalBoundary.geometry(), scale: 250, bestEffort: true}));
+print(normClay.reduceRegion({reducer: ee.Reducer.minMax(), geometry: NepalBoundary.geometry(), scale: 250, bestEffort: true}));
+print(reclassifiedLand.reduceRegion({reducer: ee.Reducer.minMax(), geometry: NepalBoundary.geometry(), scale: 250, bestEffort: true}));
+print(normalizedSoilTexture.reduceRegion({reducer: ee.Reducer.minMax(), geometry: NepalBoundary.geometry(), scale: 250, bestEffort: true}));
+
 // Landslide Susceptibility Model
 var landslideRisk = normSlope.multiply(0.3)
   .add(normalizedDrainageDensity.multiply(0.1))
@@ -244,13 +173,13 @@ var landslideRisk = normSlope.multiply(0.3)
   .add(normClay.multiply(0.2))
   .add(reclassifiedLand.multiply(0.1))
   .add(normalizedSoilTexture.multiply(0.2));
-
+  
 // Rename the band to "risk"
 var landslideRisk = landslideRisk.rename('risk');
 
 var minMaxRiskLandslide = landslideRisk.reduceRegion({
   reducer: ee.Reducer.minMax(),
-  geometry: filteredCountries.geometry(),
+  geometry: NepalBoundary.geometry(),
   scale: 250,
   bestEffort: true
 });
@@ -263,20 +192,7 @@ Map.addLayer(normalizedLandslideRisk.select(0), {
   min: 0,
   max: 1,
   palette: ['green', 'yellow', 'red']
-}, "Normalized Landslide Risk");
-```
-:::
-
-
-### Random Forest Model
-
-To find populated areas most susceptible to landslides, we masked our environmental variables to populated areas, and trained a random forest classifier on landslide and randomly generated non-landslide points from Bipad Portal. Each pixel was scored based on the proportion of decision trees voting landslide.
-
-![Random Forest Model Methodology](images/Flowchart2.png)
-
-#### Random Forest Model Code
-::: {.scroll-container style="overflow-y: scroll; height: 400px; padding:20px "}
-``` javascript
+}, "Normalized Landslide Risk", false);
 
 // Population Integration
 
@@ -288,7 +204,6 @@ var pop2020 = ghslPop.toList(12).get(9);
 // Extract the 'population_count' band and clip it to Nepal's boundary
 var popImage = ee.Image(pop2020).select('population_count').clip(NepalBoundary);
 
-
 // Reproject the population image to 1 km resolution and EPSG:4326 to ensure alignment with the landslide susceptibility model
 var pop1km = popImage
   .reproject({
@@ -296,7 +211,6 @@ var pop1km = popImage
     scale: targetScale // 1000 meters defined earlier
   })
   .clip(NepalBoundary);
-
 
 //  Visualise the 1km population layer on the map
 //   - Pixels with a population density ≥ 500 people/km² will appear fully red.
@@ -333,7 +247,8 @@ var minMaxPopulatedRisk = populatedRisk.reduceRegion({
 // Extract new min and max
 var minRiskPop = ee.Number(minMaxPopulatedRisk.get('risk_min'));
 var maxRiskPop = ee.Number(minMaxPopulatedRisk.get('risk_max'));
-
+print('Min Risk (populated areas only):', minRiskPop);
+print('Max Risk (populated areas only):', maxRiskPop);
 
 // Re-normalise the masked risk layer
 var normalizedPopulatedRisk = populatedRisk.subtract(minRiskPop)
@@ -365,6 +280,10 @@ var susceptibilityPercentiles = risk.reduceRegion({
 var p33 = ee.Number(susceptibilityPercentiles.get('risk_p33'));
 var p66 = ee.Number(susceptibilityPercentiles.get('risk_p66'));
 
+// print out 33rd and 66th percentile values to check distribution
+print('33rd percentile:', p33);
+print('66th percentile:', p66);
+
 // reclassify ones based on percentiles
 var susceptibilityZones = normalizedLandslideRisk
   .where(normalizedLandslideRisk.lt(p33), 1)
@@ -384,6 +303,10 @@ var classCounts = susceptibilityZones.reduceRegion({
   scale: 250,
   bestEffort: true
 });
+
+// Display pixel count per riks class
+print('Pixel count per risk class', classCounts);
+
 
 // 2. Overlay landslide points onto Susceptibility Zones and Evaluate
 // Source: https://bipadportal.gov.np/incidents/
@@ -429,6 +352,7 @@ var pointCounts = validationSamples.reduceColumns({
   selectors: ['zone'],
   reducer: ee.Reducer.frequencyHistogram()
 });
+print('Landslide points per risk class (1 = low, 3 = high):', pointCounts);
 
 // Calculate proportions for comparion
 var countsDict = ee.Dictionary(pointCounts.get('histogram'));
@@ -436,6 +360,7 @@ var totalPoints = countsDict.values().reduce(ee.Reducer.sum());
 var proportions = countsDict.map(function(key, value) {
   return ee.Number(value).divide(totalPoints).multiply(100);
 });
+print('Percentage of landslides per risk class:', proportions);
 
 // Control test: Generate random points across Nepal to compare spatial bias
 // This helps determine whether landslides fall in high-risk zones more than expected by chance
@@ -467,6 +392,10 @@ var randomCounts = randomSamples.reduceColumns({
   reducer: ee.Reducer.frequencyHistogram()
 });
 
+// Print out distribution of real landslide vs random points in console
+print('Real landslide point counts:', realCounts);
+print('Random point counts (expected):', randomCounts);
+
 
 // 3.Chi-Square Test for Statistical Significance
 // This test checks whether the distribution of landslide points across rik zones
@@ -476,6 +405,9 @@ var randomCounts = randomSamples.reduceColumns({
 var realDict = ee.Dictionary(realCounts.get('histogram'));
 var randomDict = ee.Dictionary(randomCounts.get('histogram'));
 
+// Log observed vs expected values for reference
+print('Observed:', realDict);
+print('Expected:', randomDict);
 
 // Apply Chi-Square formula: sum((O - E)^2 / E) for each risk class
 var keys = realDict.keys(); // ['1', '2', '3']
@@ -491,6 +423,7 @@ var chiSquareTotal = chiSquare.reduce(ee.Reducer.sum());
 // Reference critical values
 // 95% confidence: 5.991, 99%: 9.210, 99.9%: 13.82
 // Chi-square value of 835.16 is significantly higher than all reference thresholds for statistical significance
+print('Chi-square value:', chiSquareTotal);
 
 // 4. Binary Evaluation Using Confusion Matrix
 
@@ -551,7 +484,16 @@ var recall = TP.divide(TP.add(FN));
 // .max(1) avoids division by zero
 var f1 = precision.multiply(recall).multiply(2).divide(precision.add(recall).max(1));
 
-
+// Display the metrics
+print('Confusion Matrix:', confusion);
+// Of all validation points (landslide and non-landslide), how many were correctly classified overall?
+print('Accuracy:', confusion.accuracy());
+// Of all predicted high-risk areas, how many actually had landslides?
+print('Precision (Producers Accuracy):', precision);
+// Of all actual landslides, how many were correctly predicted as high-risk?
+print('Recall (Consumers Accuracy):', recall);
+// Harmonic mean of precision and recall
+print('F1 Score:', f1);
 
 // Accuracy = 0.59 - The model correctly classified 59% of all validation points (landslide + non-landslide)
 // Precision = 0.61 - Of all 1km² areas predicted as high-risk, 61% had a landslide
@@ -662,8 +604,16 @@ var recall_rf = TP_rf.divide(TP_rf.add(FN_rf));
 // Balances the model’s ability to avoid false positives and false negatives
 var f1_rf = precision_rf.multiply(recall_rf).multiply(2).divide(precision_rf.add(recall_rf).max(1));
 
+// Display metrics
+print('RF Confusion Matrix:', rfMatrix);
+print('Accuracy:', rfMatrix.accuracy());
+print('Precision (RF):', precision_rf);
+print('Recall (RF):', recall_rf);
+print('F1 Score (RF):', f1_rf);
+
 // Variable Importance in RF Classifier (how useful each variable was in tree splits)
 var importance = ee.Dictionary(classifier.explain().get('importance'));
+print('Variable Importance (RF):', importance);
 
 // Convert variable importance dictionary to a FeatureCollection
 var keys = importance.keys();
@@ -690,6 +640,54 @@ var chart = ui.Chart.feature.byFeature(importanceFC, 'variable', 'importance')
     legend: 'none',
     fontSize: 12
   });
+
+// Display the chart in the console
+print(chart);
+
+
+// User Interface
+// 1. Landslide Details
+// Create a panel to hold the landslide details
+var infoPanel = ui.Panel({
+  style: {
+    width: '300px',
+    padding: '8px',
+    position: 'bottom-left'
+  }
+});
+infoPanel.add(ui.Label('Click a landslide point to view details'));
+Map.add(infoPanel);
+
+// Add a function to update the panel when a landslide is clicked
+function showLandslideDetails(coords) {
+  // Create a point geometry from the click location
+  var point = ee.Geometry.Point(coords.lon, coords.lat);
+
+  // Filter landslide points within a small distance (~500m buffer)
+  var clicked = landslidePoints.filterBounds(point.buffer(500));
+
+  // If a feature is found, display its properties
+  clicked.evaluate(function(fc) {
+    infoPanel.clear();
+    if (fc.features.length === 0) {
+      infoPanel.add(ui.Label('No landslide point found.'));
+    } else {
+      var f = fc.features[0];
+      infoPanel.add(ui.Label('📍 Landslide Details:'));
+      infoPanel.add(ui.Label('Incident: ' + f.properties.title));
+      infoPanel.add(ui.Label('Year: ' + f.properties.year));
+      infoPanel.add(ui.Label('Date: ' + f.properties.incidentOn));
+      infoPanel.add(ui.Label('Location: ' + f.properties.streetAddress));
+      infoPanel.add(ui.Label('Deaths: ' + f.properties.peopleDeathCount));
+      infoPanel.add(ui.Label('Injured: ' + f.properties.peopleInjuredCount));
+      infoPanel.add(ui.Label('Affected: ' + f.properties.peopleAffectedCount));
+      infoPanel.add(ui.Label('Infra. Destroyed: ' + f.properties.infrastructureDestroyedCount));
+    }
+  });
+}
+
+// Attach a click event handler to the map
+Map.onClick(showLandslideDetails);
 
 // ---------------------------------------------------------------------------------------------------
 
@@ -718,6 +716,7 @@ var populatedPointRiskCounts = populatedValidationSamples.reduceColumns({
   selectors: ['risk'],
   reducer: ee.Reducer.histogram()
 });
+print('Landslide points risk histogram (populated areas only):', populatedPointRiskCounts);
 
 // 3. Compute population-specific percentiles
 var populatedRiskPercentiles = normalizedPopulatedRisk.reduceRegion({
@@ -728,7 +727,8 @@ var populatedRiskPercentiles = normalizedPopulatedRisk.reduceRegion({
 });
 var p33Pop = ee.Number(populatedRiskPercentiles.get('risk_p33'));
 var p66Pop = ee.Number(populatedRiskPercentiles.get('risk_p66'));
-
+print('33rd percentile (populated risk):', p33Pop);
+print('66th percentile (populated risk):', p66Pop);
 
 // 4. Reclassify risk map into zones (1 = low, 2 = medium, 3 = high)
 var populatedSusceptibilityZones = normalizedPopulatedRisk
@@ -752,6 +752,7 @@ var populatedPointCounts = populatedValidationZones.reduceColumns({
   selectors: ['zone'],
   reducer: ee.Reducer.frequencyHistogram()
 });
+print('Landslide points per populated risk class:', populatedPointCounts);
 
 // 6. Generate random points in Nepal and retain only those in populated pixels
 var randomPopulatedPoints = ee.FeatureCollection.randomPoints({
@@ -776,6 +777,8 @@ var randomPopulatedCounts = randomPopulatedSamples.reduceColumns({
   selectors: ['zone'],
   reducer: ee.Reducer.frequencyHistogram()
 });
+print('Real landslide point counts (populated only):', realPopulatedCounts);
+print('Random point counts (populated only):', randomPopulatedCounts);
 
 // 8. Chi-Square test: real vs random distribution
 var realPopDict = ee.Dictionary(realPopulatedCounts.get('histogram'));
@@ -789,6 +792,7 @@ var chiSquarePop = keysPop.map(function(key) {
   return observed.subtract(expected).pow(2).divide(expected);
 });
 var chiSquareTotalPop = chiSquarePop.reduce(ee.Reducer.sum());
+print('Chi-square value (populated areas only):', chiSquareTotalPop);
 
 // Binary Evaluation for Populated Areas Only
 
@@ -817,6 +821,7 @@ var populatedPredictions = populatedAllPoints.map(function(f) {
 });
 
 var populatedConfusion = populatedPredictions.errorMatrix('label', 'predicted');
+print('Confusion Matrix (populated only):', populatedConfusion);
 
 var cmArrayPop = ee.Array(populatedConfusion.array());
 var TP_pop = cmArrayPop.get([1, 1]);
@@ -826,6 +831,12 @@ var FN_pop = cmArrayPop.get([1, 0]);
 var precisionPop = TP_pop.divide(TP_pop.add(FP_pop));
 var recallPop = TP_pop.divide(TP_pop.add(FN_pop));
 var f1Pop = precisionPop.multiply(recallPop).multiply(2).divide(precisionPop.add(recallPop).max(1));
+
+// Display evaluation metrics
+print('Accuracy (populated only):', populatedConfusion.accuracy());
+print('Precision (populated only):', precisionPop);
+print('Recall (populated only):', recallPop);
+print('F1 Score (populated only):', f1Pop);
 
 // Model Comparison Summary:
 // - Chi-square value more than tripled (804.6 → 2562.9), indicating a much stronger statistical association between predicted high-risk zones and actual landslides occurring in populated areas.
@@ -853,6 +864,7 @@ var populatedPixelCount = popBinary.selfMask().reduceRegion({
 }).get('popBinary');
 var populatedArea = ee.Number(populatedPixelCount);  // each pixel ~ 1 km²
 var oversampleFactor = nepalArea.divide(populatedArea).ceil();
+print('Estimated oversample factor:', oversampleFactor);
 
 // 3. Generate oversampled random points and mask to populated areas
 var oversampledPoints = ee.FeatureCollection.randomPoints({
@@ -925,6 +937,12 @@ var precision_rfPop = TP_rfPop.divide(TP_rfPop.add(FP_rfPop));
 var recall_rfPop = TP_rfPop.divide(TP_rfPop.add(FN_rfPop));
 var f1_rfPop = precision_rfPop.multiply(recall_rfPop).multiply(2).divide(precision_rfPop.add(recall_rfPop).max(1));
 
+print('RF Confusion Matrix (Populated):', rfMatrixPop);
+print('Accuracy (Populated):', rfMatrixPop.accuracy());
+print('Precision:', precision_rfPop);
+print('Recall:', recall_rfPop);
+print('F1 Score:', f1_rfPop);
+
 // 9. Apply classifier to image
 var classifiedPopulated = featuresImagePopulated.classify(rfClassifierPop);
 Map.addLayer(classifiedPopulated, {min: 0, max: 1, palette: ['white', 'red']}, 'RF Prediction (Populated Areas)');
@@ -940,6 +958,7 @@ Map.addLayer(probabilityMapPop, {
 
 // 11. Variable importance
 var importancePop = ee.Dictionary(rfClassifierPop.explain().get('importance'));
+print('Variable Importance:', importancePop);
 
 var importanceFeaturesPop = importancePop.keys().map(function(key) {
   key = ee.String(key);
@@ -959,257 +978,24 @@ var chartPop = ui.Chart.feature.byFeature(importanceFC, 'variable', 'importance'
     legend: 'none',
     fontSize: 12
   });
-
-```
-::: 
-
-
-
-## Interface
-
-The website provides an intuitive, multilingual interface combining expertise and data into robust models, offering comparative visualizations and statistical summaries. The platform prioritizes clarity through map-based dashboards and toggleable language options to enhance accessibility and local impact. 
-
-As discussed in detail in Section ‘How It Works, 2. Interactive Visualization and Analysis’.
-
-
-
-:::: {.columns layout-align="center"}
-::: {.column width="46%"}
-![District Level View](images/UI_2.png)
-:::
-::: {.column width="2%"}
-::: 
-::: {.column width="46%"}
-![Methodology View](images/UI_3.png)
-:::
-:::: 
-
-
-
-
-
-## The Application
-
-### Demo
-
-The application runs on Google Earth Engine, allowing users to visualise landslide risk across Nepal dynamically. Users can zoom in to specific districts, interpret risk zones, and overlay incident data to validate model predictions. The tool is built for scalability and may be adapted for other regions facing similar geological threats.
-
-::: column-page
-<iframe src="https://ee-ajikumaraadarsh.projects.earthengine.app/view/nepallandslide" width="100%" height="800px">
-
-</iframe>
-:::
-
-### Key Features Beyond the Demo
-
-While our demo showcases the app's core functionality, several critical features work behind the scenes to enhance its performance and reliability. In this section, we highlight key capabilities implemented to optimize efficiency and ensure a seamless user experience.
-
-```{r, echo = FALSE, message = FALSE, warning = FALSE}
-#| classes: '.g-col-lg-6 .g-col-12 .g-col-md-12'
-#| class.output: none
-source("supporting-files/carousel.R")
-carousel("gallery-carousel", 5000, 
-         yaml.load_file("supporting-files/carousel.yml"))
-```
-
-## How it Works
-
-### 1. Data Preparation and Precomputations
-
-To handle complex computations, separate scripts were developed for the two methodologies explained above and results are imported into the app as precomputed layers.
-
-#### Imported Precomputed Layers:
-
--   Environmental Landslide Susceptibility: Maps susceptibility using environmental variables.
-
--   Normalized Landslide Susceptibility: Adjusted for population exposure.
-
--   Random Forest Landslide Probability: ML-based risk focused on populated areas.
-
-#### District-Level Aggregation:
-
-A dedicated script was built to aggregate historical landslide data with impact metrics (e.g., incidents, deaths, injuries, destroyed infrastructure), alongside population and susceptibility metrics per district. It also computes engineered features like incidents per km² and identifies nearest districts (via spatial proximity of centroids) to support comparative analysis.
-
-::: {.scroll-container style="overflow-y: scroll; height: 300px; padding:20px "}
-
-``` javascript
-
-// Compute Avg values per district
-
-districtFactors = districtFactors.map(function(feature) {
-  var districtGeom = feature.geometry();
-
-  // Compute average susceptibility
-  var avgSusceptibility = LandslideSusceptibility.reduceRegion({
-    reducer: ee.Reducer.mean(),
-    geometry: districtGeom,
-    scale: 1000,
-    maxPixels: 1e10,
-    bestEffort: true
-  }).get('risk');
-
-  // Compute standard deviation of susceptibility
-  var susceptibilityStdDev = LandslideSusceptibility.reduceRegion({
-    reducer: ee.Reducer.stdDev(),
-    geometry: districtGeom,
-    scale: 1000,
-    maxPixels: 1e10,
-    bestEffort: true
-  }).get('risk');
-
-  // Compute average susceptibility for populated areas only
-  var avgSusceptibilityPopOnly = LandslideSusceptibilityPopOnly.reduceRegion({
-    reducer: ee.Reducer.mean(),
-    geometry: districtGeom,
-    scale: 1000,
-    maxPixels: 1e10,
-    bestEffort: true
-  }).get('risk');
-
-  // Compute average Random Forest probability for populated areas only
-  var avgRFProbabilityPopOnly = RFProbabilityPopOnly.reduceRegion({
-    reducer: ee.Reducer.mean(),
-    geometry: districtGeom,
-    scale: 1000,
-    maxPixels: 1e10,
-    bestEffort: true
-  }).get('classification');
-
-  return feature.set({
-    'avgSusceptibility': ee.Number(avgSusceptibility).max(0), 
-    'susceptibilityStdDev': ee.Number(susceptibilityStdDev).max(0),
-    'avgSusceptibilityPopOnly': ee.Number(avgSusceptibilityPopOnly).max(0),
-    'avgRFProbabilityPopOnly': ee.Number(avgRFProbabilityPopOnly).max(0)
-  });
-});
-
-```
-::: 
-### 2. Interactive Visualization and Analysis
-
-#### National Overview
-
-At startup, national-level statistics are displayed, highlighting aggregated data. A pie chart shows population risk distribution across susceptibility zones (Low, Medium, High), and a bar chart lists the top 5 districts by impact metric, allowing users to switch metrics and zoom into a district by clicking a bar.
-
-#### Susceptibility Zones
-
-Susceptibility zones are defined as Low (\<0.3), Medium (0.3–0.5), and High (\>0.5), identified by analyzing the distribution of susceptibility values from the built Susceptibility model.
-
-::: {.scroll-container style="overflow-y: scroll; height: 300px; padding:20px "}
-
-``` javascript
-
-// Generate a histogram of susceptibility values
-var histogram = LandslideSusceptibility.reduceRegion({
-  reducer: ee.Reducer.histogram({min: 0, max: 1, steps: 100}),
-  geometry: NepalBoundary.geometry(),
-  scale: 1000, // Match the scale used in the app for consistency
-  maxPixels: 1e10,
-  bestEffort: true
-});
-
-// Extract the histogram data
-var histogramDict = ee.Dictionary(histogram.get('susceptibility'));
-var values = ee.List(histogramDict.get('histogram')); // Frequency counts
-var bucketEdges = ee.List(histogramDict.get('bucketMeans')); // Bin centers
-
-// Define susceptibility zones based on histogram-derived thresholds
-var thresholdZones = LandslideSusceptibility
-  .where(LandslideSusceptibility.lt(0.3), 1) // Low Risk: < 0.3
-  .where(LandslideSusceptibility.gte(0.3).and(LandslideSusceptibility.select('slope').lte(0.5)), 2) // Medium Risk: 0.3–0.5
-  .where(LandslideSusceptibility.gt(0.5), 3) // High Risk: > 0.5
-  .rename('zone')
-  .updateMask(LandslideSusceptibility.mask())
-  .clip(NepalBoundary);
-```
-:::
-
-#### District-Level Analysis
-
-This view visualizes precomputed district-level metrics, comparing them with national averages and the two nearest districts. Historical landslides are mapped, with popups displaying aggregated impact details (e.g., deaths, injuries) within a 300m radius of a clicked point.
-
-
-``` javascript
-  // Calculate nearest disticts
-  
-  // Precompute centroid coordinates to optimize nearest neighbor computation
-districtFactors = districtFactors.map(function(district) {
-  var centroid = district.geometry().centroid();
-  return district.set({
-    'centroid_lon': centroid.coordinates().get(0),
-    'centroid_lat': centroid.coordinates().get(1)
-  });});
-
-  // Compute distances to other districts and find two nearest neighbors using precomputed centroids
-  var districtsWithDistance = districtFactors.map(function(otherDistrict) {
-    var otherName = otherDistrict.get('DISTRICT');
-    var lon2 = ee.Number(otherDistrict.get('centroid_lon'));
-    var lat2 = ee.Number(otherDistrict.get('centroid_lat'));
-
-    // Approximate distance using Euclidean distance in lat/lon 
-    var distance = lon1.subtract(lon2).pow(2).add(lat1.subtract(lat2).pow(2)).sqrt();
-    return otherDistrict.set('distance', distance);});
-
-  var nearbyDistricts = districtsWithDistance
-    .filter(ee.Filter.neq('DISTRICT', districtName)).sort('distance').limit(2);
-
-  // Extract the two nearest neighbors
-  var neighbor1 = nearbyDistricts.first();
-  var neighbor2 = nearbyDistricts.toList(2).get(1);
-```
-
-#### Methodology Overview
-
-This view allows users to compare the two methodologies (Environmental Susceptibility and RF) using a split panel. It displays the RF probability map and normalized risk map for populated areas, with a draggable divider for spatial comparison, focusing on population exposure.
-
-``` javascript
-// Initialize split maps with layers
-var leftMap = ui.Map();
-var rightMap = ui.Map();
-
-// Add risk layers to split maps
-var leftProbabilityLayer = ui.Map.Layer(probabilityLayer.getEeObject(), probabilityLayer.getVisParams(), translate('RF Landslide Probability (Populated Areas)'));
-leftMap.layers().add(leftProbabilityLayer);
-var rightNormalizedRiskLayer = ui.Map.Layer(normalizedRiskLayer.getEeObject(), normalizedRiskLayer.getVisParams(), translate('Landslide Susceptibility (Populated Areas)'));
-rightMap.layers().add(rightNormalizedRiskLayer);
-
-// Link maps for synchronized zooming and panning
-var mapLinker = ui.Map.Linker([leftMap, rightMap]);
-
-// Set up the split panel for comparison
-var splitPanel = ui.SplitPanel({
- firstPanel: leftMap,
- secondPanel: rightMap,
- orientation: 'horizontal',
- wipe: true
-});
-```
-### 3. Insights and Objectives
-
-The app provides actionable insights for disaster preparedness in Nepal by identifying high-risk districts and population exposure. It supports:
-
- - **Risk Prioritization:** Highlights districts with high susceptibility or incident rates (e.g., top 5 districts by deaths) to guide resource allocation.
- 
-- **Localized Insights:** Enables district-level analysis for targeted planning and response, benefiting community preparedness efforts.
-
-- **Academic Research:** Unlike traditional landslide models in academic papers, this app provides an interactive platform for exploring risk dynamics through a comparison of Environmental Susceptibility and Random Forest methodologies, leveraging incidents data. By masking to populated areas, it focuses on human exposure, as official records often under-report incidents in uninhabited regions, ensuring more accurate risk assessment and model comparison for populated zones.
-
-### 4. Limitations and Potential Expansion
-- **Static Models:** Current models are precomputed, limiting adaptability to changing environmental conditions. Adding dynamic updates with live data (e.g., rainfall, land use changes) could improve accuracy and responsiveness.
-
-- **Granularity of Analysis:** The app focuses on district-level analysis, but more granular insights (e.g., at the village or ward level) could improve localized planning.
-
-- **Report Export:** The app lacks a feature to export analysis reports, which would be valuable for stakeholders to document and share findings.
-
-
-# References
-
-- Chalise, A., Sinjali, B., Kandel, T., Parajuli, J., & Shrestha, S. (2022). Landslide Susceptibility Mapping Using Machine Learning Approach: A Case Study of Baglung District, Nepal. Nepalese Journal of Geoinformatics, 31–41. https://doi.org/10.3126/njg.v21i1.50880
-
-- Chen, L., Ge, X., Yang, L., Li, W. and Peng, L. (2023) An Improved Multi-Source Data-Driven Landslide Prediction Method Based on Spatio-Temporal Knowledge Graph, Remote sensing, 15(8), p. 2126, [online] Available at: https://www.mdpi.com/2072-4292/15/8/2126/pdf?version=1681786952.
-
-- Meena, S.R., Albrecht, F., Hölbling, D., Ghorbanzadeh, O. and Blaschke, T. (2021). Nepalese landslide information system (NELIS): a conceptual framework for a web-based geographical information system for enhanced landslide risk management in Nepal. Natural Hazards and Earth System Sciences, [online] 21(1), pp.301–316. doi:https://doi.org/10.5194/nhess-21-301-2021.
-
-- Nepal in data, n.d. Major Languages Spoken As Mother Tongue in Nepal. Available at: https://nepalindata.com/insight/major-languages-spoken-as-mother-tongue-in-nepal/
-
-- Hong, Y., Adler, R. & Huffman, G., 2007. Use of satellite remote sensing data in the mapping of global landslide susceptibility. Natural Hazards, 43(2), pp.245–256. Available at: https://doi.org/10.1007/s11069-006-9104-z
+print(chartPop);
+
+// Exporting results to integrate within other analysis scripts
+
+
+// Normalized Landslide Risk (Populated Areas Only)
+// Export.image.toAsset({
+//   image: normalizedPopulatedRisk,
+//   description: 'Normalized_Landslide_Risk_Nepal_Populated_Areas',
+//   assetId: 'projects/ee-testing-casa-25/assets/Normalized_Landslide_Risk_Pop_only',
+//   region: NepalBoundary.geometry()
+// });
+
+
+// // Random Forest Landslide Probability (Populated Areas Only)
+// Export.image.toAsset({
+//   image: probabilityMapPop,
+//   description: 'RF_Landslide_Propbability_Pop_only',
+//   assetId: 'projects/ee-testing-casa-25/assets/RF_Landslide_Propbability_Pop_only',
+//   region: NepalBoundary.geometry()
+// });

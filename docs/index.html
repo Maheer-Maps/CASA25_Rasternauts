@@ -110,7 +110,7 @@ background-size: cover;
 </style>
 
 
-<link rel="stylesheet" href="style_gen.css">
+<link rel="stylesheet" href="supporting-files/style_gen.css">
 </head>
 
 <body>
@@ -1338,20 +1338,14 @@ if (!isInside) {
 StatisticsPanel.clear();
 var widgets = controlPanel.widgets();
 if (widgets.indexOf(districtInstructionLabel) !== -1) {
-widgets.remove(districtInstructionLabel);
-}
+widgets.remove(districtInstructionLabel); }
 if (widgets.indexOf(districtSelectPanel) !== -1) {
-widgets.remove(districtSelectPanel);
-}
+widgets.remove(districtSelectPanel); }
 StatisticsPanel.add(ui.Label(translate('Click outside Nepal boundary. Please select a point within Nepal.'), STYLES.SUBTITLE));
 StatisticsPanel.add(ui.Button({
 label: translate('Reset to National Overview'),
 onClick: function() {
-resetToNationalView();
-},
-style: { margin: '10px auto', stretch: 'horizontal', textAlign: 'center' }
-}));
-} });</div>
+resetToNationalView(); } })); } });</div>
 </div>
 </div>
 <div class="carousel-item" style="width: 100%; height: 100%; padding: 20px 70px; text-align: center; box-sizing: border-box;" data-bs-interval="5000">
@@ -1432,8 +1426,7 @@ Math.pow(clickLon - featureLon, 2) + Math.pow(clickLat - featureLat, 2)
 );
 if (distance &lt; clickRadius) {
 matchingFeatures.push(feature);
-}
-});
+} });
 
 if (matchingFeatures.length &gt; 0) {
 var totalDeaths = 0, totalInjuries = 0, incidentCount = matchingFeatures.length;
@@ -1442,9 +1435,7 @@ var props = feature.properties || {};
 totalDeaths += props.peopleDeathCount || 0;
 totalInjuries += props.peopleInjuredCount || 0;
 });
-showLandslidePopup({ incidentCount: incidentCount, totalDeaths: totalDeaths, totalInjuries: totalInjuries });
-}
-
+showLandslidePopup({ incidentCount: incidentCount, totalDeaths: totalDeaths, totalInjuries: totalInjuries }); } 
 // Display aggregated data in popup
 function showLandslidePopup(aggregatedData, coords) {
 var titleTemplate = translate('Landslide Events ({0} Incidents)');
@@ -1468,9 +1459,7 @@ contentPanel.add(createRow('Injuries:', aggregatedData.totalInjuries));
 topDistrictsChart.onClick(function(district) {
 if (district) {
 var originalDistrictName = district.toUpperCase();
-selectDistrict(originalDistrictName);
-}
-});
+selectDistrict(originalDistrictName); }});
 
 // Alternative: District dropdown selection
 districtSelect = ui.Select({
@@ -1481,9 +1470,7 @@ if (value === 'National Overview') {
 resetToNationalView();
 } else {
 selectDistrict(value);
-}
-}
-});
+}} });
 
 // Alternative: Map click selection
 Map.onClick(function(coords) {
@@ -1493,8 +1480,7 @@ if (clickedDistrict) {
 clickedDistrict.get('DISTRICT').evaluate(function(districtName) {
 districtName = districtName.trim().toUpperCase();
 selectDistrict(districtName);
-});
-} });</div>
+});}});</div>
 </div>
 </div>
 </div>
@@ -1515,7 +1501,7 @@ selectDistrict(districtName);
 <h2 class="anchored" data-anchor-id="how-it-works">How it Works</h2>
 <section id="data-preparation-and-precomputations" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation-and-precomputations">1. Data Preparation and Precomputations</h3>
-<p>To handle complex computations, separate scripts were developed for the two methodologies explained above. Results are imported into the app as precomputed layers.</p>
+<p>To handle complex computations, separate scripts were developed for the two methodologies explained above and results are imported into the app as precomputed layers.</p>
 <section id="imported-precomputed-layers" class="level4">
 <h4 class="anchored" data-anchor-id="imported-precomputed-layers">Imported Precomputed Layers:</h4>
 <ul>
@@ -1526,26 +1512,58 @@ selectDistrict(districtName);
 </section>
 <section id="district-level-aggregation" class="level4">
 <h4 class="anchored" data-anchor-id="district-level-aggregation">District-Level Aggregation:</h4>
-<p>A dedicated script was built to aggregate historical reported landslide data with impact metrics (e.g., incidents, deaths, injuries, destroyed infrastructure), alongside population and susceptibility metrics per district. It also includes engineered metrics such as incidents per km² and nearest districts (determined via spatial proximity of centroids) for comparative analysis.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Compute distances to other districts and find two nearest neighbors using precomputed centroids</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> districtsWithDistance <span class="op">=</span> districtFactors<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(otherDistrict) {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> otherName <span class="op">=</span> otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'DISTRICT'</span>)<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> lon2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'centroid_lon'</span>))<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> lat2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'centroid_lat'</span>))<span class="op">;</span></span>
+<p>A dedicated script was built to aggregate historical landslide data with impact metrics (e.g., incidents, deaths, injuries, destroyed infrastructure), alongside population and susceptibility metrics per district. It also computes engineered features like incidents per km² and identifies nearest districts (via spatial proximity of centroids) to support comparative analysis.</p>
+<div class="scroll-container" style="overflow-y: scroll; height: 300px; padding:20px ">
+<div class="sourceCode" id="cb3"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Compute Avg values per district</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>districtFactors <span class="op">=</span> districtFactors<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(feature) {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> districtGeom <span class="op">=</span> feature<span class="op">.</span><span class="fu">geometry</span>()<span class="op">;</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Approximate distance using Euclidean distance in lat/lon </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> distance <span class="op">=</span> lon1<span class="op">.</span><span class="fu">subtract</span>(lon2)<span class="op">.</span><span class="fu">pow</span>(<span class="dv">2</span>)<span class="op">.</span><span class="fu">add</span>(lat1<span class="op">.</span><span class="fu">subtract</span>(lat2)<span class="op">.</span><span class="fu">pow</span>(<span class="dv">2</span>))<span class="op">.</span><span class="fu">sqrt</span>()<span class="op">;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> otherDistrict<span class="op">.</span><span class="fu">set</span>(<span class="st">'distance'</span><span class="op">,</span> distance)<span class="op">;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nearbyDistricts <span class="op">=</span> districtsWithDistance</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">neq</span>(<span class="st">'DISTRICT'</span><span class="op">,</span> districtName))</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">sort</span>(<span class="st">'distance'</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">limit</span>(<span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Extract the two nearest neighbors</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> neighbor1 <span class="op">=</span> nearbyDistricts<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> neighbor2 <span class="op">=</span> nearbyDistricts<span class="op">.</span><span class="fu">toList</span>(<span class="dv">2</span>)<span class="op">.</span><span class="fu">get</span>(<span class="dv">1</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Compute average susceptibility</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> avgSusceptibility <span class="op">=</span> LandslideSusceptibility<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">mean</span>()<span class="op">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">geometry</span><span class="op">:</span> districtGeom<span class="op">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scale</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maxPixels</span><span class="op">:</span> <span class="fl">1e10</span><span class="op">,</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bestEffort</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">get</span>(<span class="st">'risk'</span>)<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Compute standard deviation of susceptibility</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> susceptibilityStdDev <span class="op">=</span> LandslideSusceptibility<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">stdDev</span>()<span class="op">,</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">geometry</span><span class="op">:</span> districtGeom<span class="op">,</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scale</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maxPixels</span><span class="op">:</span> <span class="fl">1e10</span><span class="op">,</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bestEffort</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">get</span>(<span class="st">'risk'</span>)<span class="op">;</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Compute average susceptibility for populated areas only</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> avgSusceptibilityPopOnly <span class="op">=</span> LandslideSusceptibilityPopOnly<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">mean</span>()<span class="op">,</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="dt">geometry</span><span class="op">:</span> districtGeom<span class="op">,</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scale</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maxPixels</span><span class="op">:</span> <span class="fl">1e10</span><span class="op">,</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bestEffort</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">get</span>(<span class="st">'risk'</span>)<span class="op">;</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Compute average Random Forest probability for populated areas only</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> avgRFProbabilityPopOnly <span class="op">=</span> RFProbabilityPopOnly<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="dt">reducer</span><span class="op">:</span> ee<span class="op">.</span><span class="at">Reducer</span><span class="op">.</span><span class="fu">mean</span>()<span class="op">,</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">geometry</span><span class="op">:</span> districtGeom<span class="op">,</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="dt">scale</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="dt">maxPixels</span><span class="op">:</span> <span class="fl">1e10</span><span class="op">,</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bestEffort</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  })<span class="op">.</span><span class="fu">get</span>(<span class="st">'classification'</span>)<span class="op">;</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> feature<span class="op">.</span><span class="fu">set</span>({</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="st">'avgSusceptibility'</span><span class="op">:</span> ee<span class="op">.</span><span class="fu">Number</span>(avgSusceptibility)<span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span>)<span class="op">,</span> </span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">'susceptibilityStdDev'</span><span class="op">:</span> ee<span class="op">.</span><span class="fu">Number</span>(susceptibilityStdDev)<span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span>)<span class="op">,</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">'avgSusceptibilityPopOnly'</span><span class="op">:</span> ee<span class="op">.</span><span class="fu">Number</span>(avgSusceptibilityPopOnly)<span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span>)<span class="op">,</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">'avgRFProbabilityPopOnly'</span><span class="op">:</span> ee<span class="op">.</span><span class="fu">Number</span>(avgRFProbabilityPopOnly)<span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span>)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 </section>
 <section id="interactive-visualization-and-analysis" class="level3">
@@ -1557,6 +1575,7 @@ selectDistrict(districtName);
 <section id="susceptibility-zones" class="level4">
 <h4 class="anchored" data-anchor-id="susceptibility-zones">Susceptibility Zones</h4>
 <p>Susceptibility zones are defined as Low (&lt;0.3), Medium (0.3–0.5), and High (&gt;0.5), identified by analyzing the distribution of susceptibility values from the built Susceptibility model.</p>
+<div class="scroll-container" style="overflow-y: scroll; height: 300px; padding:20px ">
 <div class="sourceCode" id="cb4"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">// Generate a histogram of susceptibility values</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> histogram <span class="op">=</span> LandslideSusceptibility<span class="op">.</span><span class="fu">reduceRegion</span>({</span>
@@ -1572,43 +1591,69 @@ selectDistrict(districtName);
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> values <span class="op">=</span> ee<span class="op">.</span><span class="fu">List</span>(histogramDict<span class="op">.</span><span class="fu">get</span>(<span class="st">'histogram'</span>))<span class="op">;</span> <span class="co">// Frequency counts</span></span>
 <span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> bucketEdges <span class="op">=</span> ee<span class="op">.</span><span class="fu">List</span>(histogramDict<span class="op">.</span><span class="fu">get</span>(<span class="st">'bucketMeans'</span>))<span class="op">;</span> <span class="co">// Bin centers</span></span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">// Define susceptibility zones based on histogram-derived thresholds</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> thresholdZones <span class="op">=</span> LandslideSusceptibility</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">lt</span>(<span class="fl">0.3</span>)<span class="op">,</span> <span class="dv">1</span>) <span class="co">// Low Risk: &lt; 0.3</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">gte</span>(<span class="fl">0.3</span>)<span class="op">.</span><span class="fu">and</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">select</span>(<span class="st">'slope'</span>)<span class="op">.</span><span class="fu">lte</span>(<span class="fl">0.5</span>))<span class="op">,</span> <span class="dv">2</span>) <span class="co">// Medium Risk: 0.3–0.5</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">gt</span>(<span class="fl">0.5</span>)<span class="op">,</span> <span class="dv">3</span>) <span class="co">// High Risk: &gt; 0.5</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'zone'</span>)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">updateMask</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">mask</span>())</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">clip</span>(NepalBoundary)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">// Define susceptibility zones based on histogram-derived thresholds</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> thresholdZones <span class="op">=</span> LandslideSusceptibility</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">lt</span>(<span class="fl">0.3</span>)<span class="op">,</span> <span class="dv">1</span>) <span class="co">// Low Risk: &lt; 0.3</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">gte</span>(<span class="fl">0.3</span>)<span class="op">.</span><span class="fu">and</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">select</span>(<span class="st">'slope'</span>)<span class="op">.</span><span class="fu">lte</span>(<span class="fl">0.5</span>))<span class="op">,</span> <span class="dv">2</span>) <span class="co">// Medium Risk: 0.3–0.5</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">where</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">gt</span>(<span class="fl">0.5</span>)<span class="op">,</span> <span class="dv">3</span>) <span class="co">// High Risk: &gt; 0.5</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">rename</span>(<span class="st">'zone'</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">updateMask</span>(LandslideSusceptibility<span class="op">.</span><span class="fu">mask</span>())</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="op">.</span><span class="fu">clip</span>(NepalBoundary)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
 <section id="district-level-analysis" class="level4">
 <h4 class="anchored" data-anchor-id="district-level-analysis">District-Level Analysis</h4>
-<p>This view provides detailed district analysis, showing key metrics like average susceptibility, population, and incidents per km², alongside comparisons with national averages and the two nearest districts. Historical landslides are visualized on the map, with popups displaying aggregated details within a 300m radius of a clicked point.</p>
+<p>This view visualizes precomputed district-level metrics, comparing them with national averages and the two nearest districts. Historical landslides are mapped, with popups displaying aggregated impact details (e.g., deaths, injuries) within a 300m radius of a clicked point.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Calculate nearest disticts</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Precompute centroid coordinates to optimize nearest neighbor computation</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>districtFactors <span class="op">=</span> districtFactors<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(district) {</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> centroid <span class="op">=</span> district<span class="op">.</span><span class="fu">geometry</span>()<span class="op">.</span><span class="fu">centroid</span>()<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> district<span class="op">.</span><span class="fu">set</span>({</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'centroid_lon'</span><span class="op">:</span> centroid<span class="op">.</span><span class="fu">coordinates</span>()<span class="op">.</span><span class="fu">get</span>(<span class="dv">0</span>)<span class="op">,</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'centroid_lat'</span><span class="op">:</span> centroid<span class="op">.</span><span class="fu">coordinates</span>()<span class="op">.</span><span class="fu">get</span>(<span class="dv">1</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span>})<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Compute distances to other districts and find two nearest neighbors using precomputed centroids</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> districtsWithDistance <span class="op">=</span> districtFactors<span class="op">.</span><span class="fu">map</span>(<span class="kw">function</span>(otherDistrict) {</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> otherName <span class="op">=</span> otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'DISTRICT'</span>)<span class="op">;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> lon2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'centroid_lon'</span>))<span class="op">;</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> lat2 <span class="op">=</span> ee<span class="op">.</span><span class="fu">Number</span>(otherDistrict<span class="op">.</span><span class="fu">get</span>(<span class="st">'centroid_lat'</span>))<span class="op">;</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Approximate distance using Euclidean distance in lat/lon </span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> distance <span class="op">=</span> lon1<span class="op">.</span><span class="fu">subtract</span>(lon2)<span class="op">.</span><span class="fu">pow</span>(<span class="dv">2</span>)<span class="op">.</span><span class="fu">add</span>(lat1<span class="op">.</span><span class="fu">subtract</span>(lat2)<span class="op">.</span><span class="fu">pow</span>(<span class="dv">2</span>))<span class="op">.</span><span class="fu">sqrt</span>()<span class="op">;</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> otherDistrict<span class="op">.</span><span class="fu">set</span>(<span class="st">'distance'</span><span class="op">,</span> distance)<span class="op">;</span>})<span class="op">;</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> nearbyDistricts <span class="op">=</span> districtsWithDistance</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span><span class="fu">filter</span>(ee<span class="op">.</span><span class="at">Filter</span><span class="op">.</span><span class="fu">neq</span>(<span class="st">'DISTRICT'</span><span class="op">,</span> districtName))<span class="op">.</span><span class="fu">sort</span>(<span class="st">'distance'</span>)<span class="op">.</span><span class="fu">limit</span>(<span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="co">// Extract the two nearest neighbors</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> neighbor1 <span class="op">=</span> nearbyDistricts<span class="op">.</span><span class="fu">first</span>()<span class="op">;</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> neighbor2 <span class="op">=</span> nearbyDistricts<span class="op">.</span><span class="fu">toList</span>(<span class="dv">2</span>)<span class="op">.</span><span class="fu">get</span>(<span class="dv">1</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="methodology-overview" class="level4">
 <h4 class="anchored" data-anchor-id="methodology-overview">Methodology Overview</h4>
 <p>This view allows users to compare the two methodologies (Environmental Susceptibility and RF) using a split panel. It displays the RF probability map and normalized risk map for populated areas, with a draggable divider for spatial comparison, focusing on population exposure.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Initialize split maps with layers</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> leftMap <span class="op">=</span> ui<span class="op">.</span><span class="fu">Map</span>()<span class="op">;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> rightMap <span class="op">=</span> ui<span class="op">.</span><span class="fu">Map</span>()<span class="op">;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Add risk layers to split maps</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> leftProbabilityLayer <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Layer</span>(probabilityLayer<span class="op">.</span><span class="fu">getEeObject</span>()<span class="op">,</span> probabilityLayer<span class="op">.</span><span class="fu">getVisParams</span>()<span class="op">,</span> <span class="fu">translate</span>(<span class="st">'RF Landslide Probability (Populated Areas)'</span>))<span class="op">;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>leftMap<span class="op">.</span><span class="fu">layers</span>()<span class="op">.</span><span class="fu">add</span>(leftProbabilityLayer)<span class="op">;</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> rightNormalizedRiskLayer <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Layer</span>(normalizedRiskLayer<span class="op">.</span><span class="fu">getEeObject</span>()<span class="op">,</span> normalizedRiskLayer<span class="op">.</span><span class="fu">getVisParams</span>()<span class="op">,</span> <span class="fu">translate</span>(<span class="st">'Landslide Susceptibility (Populated Areas)'</span>))<span class="op">;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>rightMap<span class="op">.</span><span class="fu">layers</span>()<span class="op">.</span><span class="fu">add</span>(rightNormalizedRiskLayer)<span class="op">;</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Link maps for synchronized zooming and panning</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mapLinker <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Linker</span>([leftMap<span class="op">,</span> rightMap])<span class="op">;</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">// Set up the split panel for comparison</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> splitPanel <span class="op">=</span> ui<span class="op">.</span><span class="fu">SplitPanel</span>({</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a> <span class="dt">firstPanel</span><span class="op">:</span> leftMap<span class="op">,</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a> <span class="dt">secondPanel</span><span class="op">:</span> rightMap<span class="op">,</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a> <span class="dt">orientation</span><span class="op">:</span> <span class="st">'horizontal'</span><span class="op">,</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a> <span class="dt">wipe</span><span class="op">:</span> <span class="kw">true</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode javascript code-with-copy"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Initialize split maps with layers</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> leftMap <span class="op">=</span> ui<span class="op">.</span><span class="fu">Map</span>()<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> rightMap <span class="op">=</span> ui<span class="op">.</span><span class="fu">Map</span>()<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co">// Add risk layers to split maps</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> leftProbabilityLayer <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Layer</span>(probabilityLayer<span class="op">.</span><span class="fu">getEeObject</span>()<span class="op">,</span> probabilityLayer<span class="op">.</span><span class="fu">getVisParams</span>()<span class="op">,</span> <span class="fu">translate</span>(<span class="st">'RF Landslide Probability (Populated Areas)'</span>))<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>leftMap<span class="op">.</span><span class="fu">layers</span>()<span class="op">.</span><span class="fu">add</span>(leftProbabilityLayer)<span class="op">;</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> rightNormalizedRiskLayer <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Layer</span>(normalizedRiskLayer<span class="op">.</span><span class="fu">getEeObject</span>()<span class="op">,</span> normalizedRiskLayer<span class="op">.</span><span class="fu">getVisParams</span>()<span class="op">,</span> <span class="fu">translate</span>(<span class="st">'Landslide Susceptibility (Populated Areas)'</span>))<span class="op">;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>rightMap<span class="op">.</span><span class="fu">layers</span>()<span class="op">.</span><span class="fu">add</span>(rightNormalizedRiskLayer)<span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">// Link maps for synchronized zooming and panning</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> mapLinker <span class="op">=</span> ui<span class="op">.</span><span class="at">Map</span><span class="op">.</span><span class="fu">Linker</span>([leftMap<span class="op">,</span> rightMap])<span class="op">;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co">// Set up the split panel for comparison</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="kw">var</span> splitPanel <span class="op">=</span> ui<span class="op">.</span><span class="fu">SplitPanel</span>({</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a> <span class="dt">firstPanel</span><span class="op">:</span> leftMap<span class="op">,</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a> <span class="dt">secondPanel</span><span class="op">:</span> rightMap<span class="op">,</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a> <span class="dt">orientation</span><span class="op">:</span> <span class="st">'horizontal'</span><span class="op">,</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a> <span class="dt">wipe</span><span class="op">:</span> <span class="kw">true</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="insights-and-objectives" class="level3">
@@ -2078,8 +2123,11 @@ CASA0025 Group Project
     </div>
     <div class="nav-footer-right">
       <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ <span style="margin-right: 5px;">For all precomputation scripts and main app code, please visit:</span>
+  </li>  
     <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/Maheer-Maps/CASA25_Rasternauts" target="_blank">
+    <a class="nav-link" href="https://github.com/Maheer-Maps/CASA25_Rasternauts/tree/main/GEE-scripts" target="_blank">
       <i class="bi bi-github" role="img">
 </i> 
     </a>

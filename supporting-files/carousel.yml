@@ -54,19 +54,18 @@
       StatisticsPanel.clear();\n\
       var widgets = controlPanel.widgets();\n\
       if (widgets.indexOf(districtInstructionLabel) !== -1) {\n\
-        widgets.remove(districtInstructionLabel);\n\
+        widgets.remove(districtInstructionLabel);
       }\n\
       if (widgets.indexOf(districtSelectPanel) !== -1) {\n\
-        widgets.remove(districtSelectPanel);\n\
+        widgets.remove(districtSelectPanel);
       }\n\
       StatisticsPanel.add(ui.Label(translate('Click outside Nepal boundary. Please select a point within Nepal.'), STYLES.SUBTITLE));\n\
       StatisticsPanel.add(ui.Button({\n\
         label: translate('Reset to National Overview'),\n\
         onClick: function() {\n\
-          resetToNationalView();\n\
-        },\n\
-        style: { margin: '10px auto', stretch: 'horizontal', textAlign: 'center' }\n\
-      }));\n\
+          resetToNationalView();
+        }
+      }));
     }
   });"
   link: ""
@@ -131,7 +130,7 @@
       );\n\
       if (distance < clickRadius) {\n\
         matchingFeatures.push(feature);\n\
-      }\n\
+      }
     });\n\
     \n\
     if (matchingFeatures.length > 0) {\n\
@@ -141,8 +140,8 @@
         totalDeaths += props.peopleDeathCount || 0;\n\
         totalInjuries += props.peopleInjuredCount || 0;\n\
       });\n\
-      showLandslidePopup({ incidentCount: incidentCount, totalDeaths: totalDeaths, totalInjuries: totalInjuries });\n\
-    }\n\
+      showLandslidePopup({ incidentCount: incidentCount, totalDeaths: totalDeaths, totalInjuries: totalInjuries });
+    }
     \n\
     // Display aggregated data in popup\n\
     function showLandslidePopup(aggregatedData, coords) {\n\
@@ -161,10 +160,8 @@
   topDistrictsChart.onClick(function(district) {\n\
     if (district) {\n\
       var originalDistrictName = district.toUpperCase();\n\
-      selectDistrict(originalDistrictName);\n\
-    }\n\
-  });\n\
-  \n\
+      selectDistrict(originalDistrictName); }});\n\
+  
   // Alternative: District dropdown selection\n\
   districtSelect = ui.Select({\n\
     items: districtSelectItems,\n\
@@ -174,10 +171,9 @@
         resetToNationalView();\n\
       } else {\n\
         selectDistrict(value);\n\
-      }\n\
-    }\n\
+      }}
   });\n\
-  \n\
+  
   // Alternative: Map click selection\n\
   Map.onClick(function(coords) {\n\
     var point = ee.Geometry.Point(coords.lon, coords.lat);\n\
@@ -186,7 +182,5 @@
       clickedDistrict.get('DISTRICT').evaluate(function(districtName) {\n\
         districtName = districtName.trim().toUpperCase();\n\
         selectDistrict(districtName);\n\
-      });\n\
-    }
-  });"
+      });}});"
   link: ""
