@@ -8,7 +8,7 @@ This repository hosts a Quarto website that documents the project, detailing the
 
 ## Precomputations Folder
 
-The `precomputations` folder contains scripts used to generate the datasets powering the app, such as district-level risk factors and the landslide susceptibility model. These scripts process raw geospatial data and upload the results as GEE assets, which the app then uses for analysis and visualization. 
+The `GEE-scripts` folder contains main script in addition to scripts used to generate the datasets powering the app, such as district-level risk factors and the landslide susceptibility model. These scripts process raw geospatial data and upload the results as GEE assets, which the app then uses for analysis and visualization. 
 
 ## Group
 Developed by the **Rasternauts** team as part of the CASA0025 assignment.
