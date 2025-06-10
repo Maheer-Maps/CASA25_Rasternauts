@@ -1,14 +1,31 @@
+# NEPAL LANDSLIDES RISK APPLICATION  
+**Big Data Solutions for Himalayan Hazards**  
 
-# Nepal Landslides Risk Assessment Tool - CASA0025 Assignment
+[![GEE Application Screenshot](GEE.png)](https://maheer-maps.github.io/CASA25_Rasternauts/)  
 
-Welcome to the repository for the Nepal Landslides Risk Assessment Tool, a web-based application built using Google Earth Engine (GEE) to assess landslide susceptibility and risk across Nepal. By leveraging big data, the tool provides critical insights to support disaster preparedness and planning in a region highly vulnerable to landslides.
+---
 
+### Context  
+| Category | Details |
+|----------|---------|
+| **University** | University College London (UCL) |
+| **Department** | Centre for Advanced Spatial Analysis (CASA) |
+| **Year** | 2024-2025 |
+| **Program** | MSc Urban Spatial Science |
+| **Module** | [CASA0025 Building Spatial Applications with Big Data](https://www.ucl.ac.uk/module-catalogue/modules/building-spatial-applications-with-big-data-CASA0025) |
+| **Module Lead** | Ollie Ballinger |
+| **Credits** | 15 |
+| **Assessment** | Group Project (70% of module) |
+| **Team** | RASTERNAUTS: Aadarsh Ajikumar, Norah Al Hosain, Dan Jung Jihun, Maheer Khan, Clare Rickard, Robb Young |
 
-This repository hosts a Quarto website that documents the project, detailing the app’s development, functionality, and insights. The app itself provides national and district-level analyses of landslide risks, historical incidents, and population exposure, with a focus on accessibility, performance, and user interaction through multilingual support and intuitive visualizations. [Explore the website here](https://maheer-maps.github.io/CASA25_Rasternauts/) to learn more about our methodology, data sources, and the app’s features.
+---
 
-## Precomputations Folder
+### Project Overview  
+This Google Earth Engine application assesses landslide risks across Nepal's challenging terrain, combining satellite data, susceptibility modeling, and population exposure analysis. Our web tool delivers district-level risk assessments with multilingual support, helping disaster planners prioritize mitigation efforts in vulnerable Himalayan communities.
 
-The `GEE-scripts` folder contains main script in addition to scripts used to generate the datasets powering the app, such as district-level risk factors and the landslide susceptibility model. These scripts process raw geospatial data and upload the results as GEE assets, which the app then uses for analysis and visualization. 
+**Live Application:** [Explore the Tool](https://maheer-maps.github.io/CASA25_Rasternauts/)  
 
-## Group
-Developed by the **Rasternauts** team as part of the CASA0025 assignment.
+---
+
+### © License  
+This project is licensed under the [MIT License](LICENSE).
